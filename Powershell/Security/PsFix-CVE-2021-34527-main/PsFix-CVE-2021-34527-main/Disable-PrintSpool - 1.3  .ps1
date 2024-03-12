@@ -1,0 +1,77 @@
+﻿<#
+System requirements
+PSVersion                      5.1.19041.2364                                                                                                       
+PSEdition                      Desktop                                                                                                              
+PSCompatibleVersions           {1.0, 2.0, 3.0, 4.0...}                                                                                              
+BuildVersion                   10.0.19041.2364                                                                                                      
+CLRVersion                     4.0.30319.42000                                                                                                      
+WSManStackVersion              3.0                                                                                                                  
+PSRemotingProtocolVersion      2.3                                                                                                                  
+SerializationVersion           1.1.0.1      
+
+About Script 
+Author : Fardin.barashi@gmail.com
+Title : PsFix-CVE-2021-34527
+
+Description : 
+Fix for the security
+
+Script Changes ACL in the directory
+Stop Service PrintSpooler Spooler
+Changes StartupType to Disabled
+
+Add every server in the serverlist.csv and run script.
+
+Version : -
+Release day : -
+Github Link  : https://github.com/fardinbarashi
+News : -
+#>
+
+#----------------------------------- Settings ------------------------------------------
+# Transcript
+$ScriptName = $MyInvocation.MyCommand.Name
+$LogFileDate = (Get-Date -Format yyyy/MM/dd/HH.mm.ss)
+$TranScriptLogFile = "$PSScriptRoot\Logs\$ScriptName - $LogFileDate.Txt" 
+$StartTranscript = Start-Transcript -Path $TranScriptLogFile -Force
+Get-Date -Format "yyyy/MM/dd HH:mm:ss"
+Write-Host ".. Starting TranScript"
+
+$ServerList = "$PSScriptRoot\Serverlist.csv"
+
+#----------------------------------- Start Script ------------------------------------------
+
+
+Try 
+ { # Start Try  
+   $ImportServerList = Import-Csv $ServerList -Encoding UTF8 | ForEach-Object { # Start Foreach 
+    New-Object PsObject -Prop @{ # Start New-Object 
+     ServerName = $_.ServerName } # End NewObject 
+      Invoke-Command -ComputerName $_.ServerName -ErrorAction Continue -ScriptBlock -Verbose  { # Start ScriptBlock  
+       # Change ACL
+       $Path = "C:\Windows\System32\spool\drivers"
+       $Acl = Get-Acl $Path
+       $Ar = New-Object  System.Security.AccessControl.FileSystemAccessRule("System", "Modify", "ContainerInherit, ObjectInherit", "None", "Deny")
+       $Acl.AddAccessRule($Ar)
+       Set-Acl $Path $Acl
+       
+       # Disable Service PrintSpooler
+       Get-Service -Name Spooler | Stop-Service -Force | Set-Service -StartupType Disabled -Verbose
+
+   } # End ScriptBlock
+  } # End Foreach       
+ } # End Try
+
+Catch
+ { # Start Catch 
+  Write-Warning -Message "## ERROR## " 
+  Write-Warning -Message "## Script could not start ## " 
+  Write-Warning $Error[0]
+ } # End Catch
+
+Stop-Transcript
+
+
+
+
+  

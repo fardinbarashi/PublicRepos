@@ -1,0 +1,258 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20230516152854
+Username: BATTLESTATION\Keefa
+RunAs User: BATTLESTATION\Keefa
+Configuration Name: 
+Machine: BATTLESTATION (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\WINDOWS\system32\WindowsPowerShell\v1.0\PowerShell_ISE.exe
+Process ID: 928
+PSVersion: 5.1.19041.2673
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.2673
+BuildVersion: 10.0.19041.2673
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is D:\Migerat till D-disken\ReWrite\Patternfinder-main\Files\Logs\Logfile.txt
+Remove-Item : Cannot find path 'D:\Migerat till D-disken\ReWrite\Patternfinder-main\Files\Csv\FileType.csv' because it d
+oes not exist.
+At D:\Migerat till D-disken\ReWrite\Patternfinder-main\PatternFinder.ps1:87 char:1
++ Remove-Item -Path $CsvFileType
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (D:\Migerat till...sv\FileType.csv:String) [Remove-Item], ItemNotFoundExce
+ption
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.RemoveItemCommand
+Remove-Item : Cannot find path 'D:\Migerat till D-disken\ReWrite\Patternfinder-main\Files\Csv\FileType.csv' because it does not exist
+.
+At D:\Migerat till D-disken\ReWrite\Patternfinder-main\PatternFinder.ps1:87 char:1
++ Remove-Item -Path $CsvFileType
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (D:\Migerat till...sv\FileType.csv:String) [Remove-Item], ItemNotFoundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.RemoveItemCommand
+
+Remove-Item : Cannot find path 'D:\Migerat till D-disken\ReWrite\Patternfinder-main\Files\ListviewData\ListViewData.csv'
+ because it does not exist.
+At D:\Migerat till D-disken\ReWrite\Patternfinder-main\PatternFinder.ps1:88 char:1
++ Remove-Item -Path $FilesSearchCsv
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (D:\Migerat till...istViewData.csv:String) [Remove-Item], ItemNotFoundExce
+ption
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.RemoveItemCommand
+Remove-Item : Cannot find path 'D:\Migerat till D-disken\ReWrite\Patternfinder-main\Files\ListviewData\ListViewData.csv' because it d
+oes not exist.
+At D:\Migerat till D-disken\ReWrite\Patternfinder-main\PatternFinder.ps1:88 char:1
++ Remove-Item -Path $FilesSearchCsv
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (D:\Migerat till...istViewData.csv:String) [Remove-Item], ItemNotFoundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.RemoveItemCommand
+
+Get-ChildItem : Access to the path 'C:\WINDOWS\system32\LogFiles\WMI\RtBackup' is denied.
+At D:\Migerat till D-disken\ReWrite\Patternfinder-main\PatternFinder.ps1:322 char:26
++ ... FileTypes = Get-ChildItem -Recurse -Force -Path $FileDialogFileBrowse ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\WINDOWS\syst...es\WMI\RtBackup:String) [Get-ChildItem], Unauthorized
+AccessException
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+Get-ChildItem : Access to the path 'C:\WINDOWS\system32\LogFiles\WMI\RtBackup' is denied.
+At D:\Migerat till D-disken\ReWrite\Patternfinder-main\PatternFinder.ps1:322 char:26
++ ... FileTypes = Get-ChildItem -Recurse -Force -Path $FileDialogFileBrowse ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\WINDOWS\syst...es\WMI\RtBackup:String) [Get-ChildItem], UnauthorizedAccessExcept
+   ion
+    + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
+
+>> TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+Transcript started, output file is C:\Users\Keefa\Desktop\Patternfinder-main\Files\Logs\Logfile.txt
+PS C:\WINDOWS\system32> TerminatingError(): "The pipeline has been stopped."
+0
+0
+1
+0
+2
+0
+0
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+Select-Object : Property "Extension" cannot be found.
+At C:\Users\Keefa\Desktop\Patternfinder-main\PatternFinder.ps1.1.ps1:133 char:50
++ ... port-Csv -Path $CsvFileType | Select-Object -ExpandProperty Extension
++                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (@{Length=4}:PSObject) [Select-Object], PSArgumentException
+    + FullyQualifiedErrorId : ExpandPropertyNotFound,Microsoft.PowerShell.Commands.SelectObjectCommand
+
+Cancel
+**********************
+Windows PowerShell transcript start
+Start time: 20240108142709
+Username: LAB\Fardin
+RunAs User: LAB\Fardin
+Configuration Name: 
+Machine: CODESERVER (Microsoft Windows NT 10.0.20348.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe C:\Github projects\1. Rewrite-Projects\ReWrite\Patternfinder-main\PatternFinder.ps1
+Process ID: 2892
+PSVersion: 5.1.20348.2110
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.20348.2110
+BuildVersion: 10.0.20348.2110
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Github projects\1. Rewrite-Projects\ReWrite\Patternfinder-main\Files\Logs\Logfile.txt
+**********************
+Windows PowerShell transcript end
+End time: 20240108142712
+**********************

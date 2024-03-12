@@ -1,0 +1,56 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20240116093339
+Username: LAB\Fardin
+RunAs User: LAB\Fardin
+Configuration Name: 
+Machine: CODESERVER (Microsoft Windows NT 10.0.20348.0)
+Host Application: C:\Windows\system32\WindowsPowerShell\v1.0\PowerShell_ISE.exe
+Process ID: 2056
+PSVersion: 5.1.20348.2227
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.20348.2227
+BuildVersion: 10.0.20348.2227
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+2024-01-16 09:33:39
+.. Starting TranScript
+PS C:\Windows\system32> TerminatingError(New-Object): "Exception calling ".ctor" with "1" argument(s): "Could not find a part of the path 'C:\Windows\system32\ ENTER PATH TO THE FOLDER\Xml-Pattern\Files\Img\logo\logo.ico'.""
+New-Object : Exception calling ".ctor" with "1" argument(s): "Could not find a part of the path 'C:\Windows\system32\ EN
+TER PATH TO THE FOLDER\Xml-Pattern\Files\Img\logo\logo.ico'."
+At C:\Users\Fardin\Desktop\Powershell\Automation\Applications\Powershell\PatternFinder XML\Xml-PatternFinder-1.0 .ps1:30
+ char:25
++ ... nForm.Icon = New-Object system.drawing.icon ("$ApplicationIconPath ")
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [New-Object], MethodInvocationException
+    + FullyQualifiedErrorId : ConstructorInvokedThrowException,Microsoft.PowerShell.Commands.NewObjectCommand
+New-Object : Exception calling ".ctor" with "1" argument(s): "Could not find a part of the path 'C:\Windows\system32\ ENTER PATH TO THE FOLDER\Xml-Pattern\Files\Img\logo\logo.ico'."
+At C:\Users\Fardin\Desktop\Powershell\Automation\Applications\Powershell\PatternFinder XML\Xml-PatternFinder-1.0 .ps1:30 char:25
++ ... nForm.Icon = New-Object system.drawing.icon ("$ApplicationIconPath ")
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [New-Object], MethodInvocationException
+    + FullyQualifiedErrorId : ConstructorInvokedThrowException,Microsoft.PowerShell.Commands.NewObjectCommand
+
+Get-Content : Cannot find path 'C:\Windows\system32\ENTER PATH TO THE FOLDER \Xml-Pattern\Files\XmlColumns\GenerateColum
+ns.xml' because it does not exist.
+At C:\Users\Fardin\Desktop\Powershell\Automation\Applications\Powershell\PatternFinder XML\Xml-PatternFinder-1.0 .ps1:33
+ char:20
++ [XML]$Script:XML = Get-Content $XMLFile
++                    ~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Windows\syst...rateColumns.xml:String) [Get-Content], ItemNotFoundExce
+ption
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+Get-Content : Cannot find path 'C:\Windows\system32\ENTER PATH TO THE FOLDER \Xml-Pattern\Files\XmlColumns\GenerateColumns.xml' because it does not exist.
+At C:\Users\Fardin\Desktop\Powershell\Automation\Applications\Powershell\PatternFinder XML\Xml-PatternFinder-1.0 .ps1:33 char:20
++ [XML]$Script:XML = Get-Content $XMLFile
++                    ~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Windows\syst...rateColumns.xml:String) [Get-Content], ItemNotFoundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+
+**********************
+Windows PowerShell transcript end
+End time: 20240116093342
+**********************

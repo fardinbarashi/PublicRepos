@@ -1,0 +1,1 @@
+Start-Process 'C:\Program Files (x86)\WinSCP\WinSCP.com' '/script=D:\WinSCP\Script_put_.txt /log=D:\WinSCP\Script_put_.log' -NoNewWindow -Wait

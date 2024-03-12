@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="no"?>
+
+<OPTIONS>
+  <FileInfo Enabled="True">
+   <FileName Enabled="True"/>
+   <Folder Enabled="True"/>
+   <LineNumber Enabled="True"/>
+   <Line Enabled="True"/>
+   <Path Enabled="True"/>
+  </FileInfo>
+
+</OPTIONS>
