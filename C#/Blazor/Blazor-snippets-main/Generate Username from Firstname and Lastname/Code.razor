@@ -1,0 +1,56 @@
+<!-- Frontend Start  -->
+    <!--  identity -->
+    <div class="identity">
+        <h2>Identity</h2>
+        <p class="small-text">Enter identity information below</p>
+        <input type="text" class="form-control" @bind="IdentityFirstName" @bind:event="oninput" @onchange="OnNameChanged" id="IdentityFirstName">
+        <input type="text" class="form-control" @bind="IdentityLastName" @bind:event="oninput" @onchange="OnNameChanged" id="IdentityLastName">
+     </div>
+
+    <!-- Username Options -->
+    <div class="usernameoptions">
+        <h2>Username</h2>
+        <p class="small-text">Configure username options</p>
+        <!-- Username Firstname -->
+        <label for="usernameoptionsfirstnamelength" style="margin-right: 10px;">How many char from the firstname:</label>
+        <input type="number" class="form-control" @bind="UserNameOptionsFirstNameLength" min="1" max="128"  style="flex: 1; max-width: 70px" title="Description: example FFFFXXXX.">
+        <!-- Username Lastname -->
+        <label for="usernameoptionslastnamelength" style="margin-right: 10px;">How many char from the lastname:</label>
+        <input type="number" class="form-control" @bind="UserNameOptionsLastNameLength" min="1" max="128" style="flex: 1; max-width: 70px" title="Description: example FFFFLLLL.">  
+        
+        <!-- Username Potential -->
+        <p></p>
+        <label for="usernameoptionpotusername">Username</label>
+        <input type="text" class="form-control" id="usernameoptionpotusername" value="@GenerateUsername()" readonly style="max-width: 300px;" title="Description: User's new account.">
+    </div>
+
+<!-- FrontEnd End -->
+<!-- Code Start -->
+@code {
+    // Bind FrontEnd Forms
+    // Identity properties
+    public string? IdentityFirstName { get; set; }
+    public string? IdentityLastName { get; set; }
+    
+   
+
+    // Username Options
+    public int UserNameOptionsFirstNameLength { get; set; } = 0;
+    public int UserNameOptionsLastNameLength { get; set; } = 0;
+
+    public string GenerateUsername()
+    {
+        int firstnameLength = Math.Min(UserNameOptionsFirstNameLength, IdentityFirstName?.Length ?? 0);
+        int lastnameLength = Math.Min(UserNameOptionsLastNameLength, IdentityLastName?.Length ?? 0);
+
+        string username = $"{IdentityFirstName?.Substring(0, firstnameLength)}{IdentityLastName?.Substring(0, lastnameLength)}";
+        return username.ToLower(); 
+
+    }
+    private void OnNameChanged()
+    {
+        StateHasChanged();    
+
+    }
+
+}
