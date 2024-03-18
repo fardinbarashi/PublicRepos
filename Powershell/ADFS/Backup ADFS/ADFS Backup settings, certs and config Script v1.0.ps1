@@ -20,30 +20,9 @@ Version : 1.0
 Release day : 2023-10-31
 Github Link  : https://github.com/fardinbarashi
 News : 
-
-
 #>
-<#
-System requirements
-PSVersion                      5.1.19041.2364                                                                                                       
-PSEdition                      Desktop                                                                                                              
-PSCompatibleVersions           {1.0, 2.0, 3.0, 4.0...}                                                                                              
-BuildVersion                   10.0.19041.2364                                                                                                      
-CLRVersion                     4.0.30319.42000                                                                                                      
-WSManStackVersion              3.0                                                                                                                  
-PSRemotingProtocolVersion      2.3                                                                                                                  
-SerializationVersion           1.1.0.1      
 
-About Script : Template for Ps-5 Scripts
-Author : Fardin Barashi
-Title : Backup ADFS config and settings
-Description : A script that saves config and settings files. IF private keys are not exporatble, it will fail on the last step
-Version : 1.0
-Release day : 2023-10-31
-Github Link  : https://github.com/fardinbarashi
-News : 
 
-#>
 
 #----------------------------------- Settings ------------------------------------------
 # Transcript

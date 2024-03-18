@@ -1,14 +1,12 @@
-# Create Vms 
+# DnsChecker
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Quick way to create some VM's
-
+DNS-checker is quick way to remove DNS entrys in winsrv. 
 
 <!-- GETTING STARTED -->
 ## Getting Started
 Run script
-
 
 <!-- LICENSE -->
 ## License

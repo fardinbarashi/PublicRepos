@@ -1,14 +1,10 @@
-# Create Vms 
+# GUI
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
-Quick way to create some VM's
+WPF / GUI Powershell scripts
 
-
-<!-- GETTING STARTED -->
-## Getting Started
-Run script
-
+Calreminder, Get email when the date is expired at the row
+Patterfinder, lika logviewer
+PsGuiRolf, Run on local computers to se users that have logged in, remove accounts
 
 <!-- LICENSE -->
 ## License
@@ -21,8 +17,3 @@ Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
 Linkedin - [Fardin Barashi]([https://twitter.com/your_username](https://www.linkedin.com/in/fardin-barashi-a56310a2/)) - email@example.com
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-
-

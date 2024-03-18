@@ -1,14 +1,6 @@
-# Create Vms 
+# HyperV settings  Script
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
-Quick way to create some VM's
-
-
-<!-- GETTING STARTED -->
-## Getting Started
-Run script
-
+Just some snippets to change the settings in the hyper v host
 
 <!-- LICENSE -->
 ## License
@@ -21,8 +13,3 @@ Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
 Linkedin - [Fardin Barashi]([https://twitter.com/your_username](https://www.linkedin.com/in/fardin-barashi-a56310a2/)) - email@example.com
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-
-

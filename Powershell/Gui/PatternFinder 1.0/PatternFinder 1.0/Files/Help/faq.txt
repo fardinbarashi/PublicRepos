@@ -1,9 +1,0 @@
-Patternfinder is a tool written in Powershell to be able to fastsearch for files with a certain word.
-Patternfinder use cmd Select-String.
-
-How to use
-1.Browse for a folder
-2.Optional Select filetype
-3.Enter word to search for and press search.
-
-The listview is going to be populated with the query.

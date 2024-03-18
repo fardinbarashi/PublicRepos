@@ -1,14 +1,15 @@
-# Create Vms 
+# PsRolf
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Quick way to create some VM's
-
+This script removes accounts that is has not been logged in over 180 days.
+If you want to change the amount of days, you need to change $DaysFilterAccounts .AddDays(-180) 
+The Accounts Reg-edit items at profilelist/Sid and homefolder ( localpath ) will be removed.
+Works on Windows 10 Enterprise Build 17763
 
 <!-- GETTING STARTED -->
 ## Getting Started
 Run script
-
 
 <!-- LICENSE -->
 ## License

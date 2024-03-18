@@ -1,14 +1,12 @@
-# Create Vms 
+# Find Disabled Accounts in Active Directory
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Quick way to create some VM's
-
+Find Disabled Accounts in Active Directory
 
 <!-- GETTING STARTED -->
 ## Getting Started
-Run script
-
+Run Script, no customization is needed
 
 <!-- LICENSE -->
 ## License
@@ -21,8 +19,3 @@ Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
 Linkedin - [Fardin Barashi]([https://twitter.com/your_username](https://www.linkedin.com/in/fardin-barashi-a56310a2/)) - email@example.com
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-
-

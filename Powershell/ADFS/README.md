@@ -1,8 +1,18 @@
 # ADFS
-Just some ADFS scripts
-- - Backup ADFS - Get every ADFS setting, config and settings files. IF private keys are not exporatble, it will fail on the last step.
-the steps are proccessed from 
 
-- - 
-AdfsExportMetadata
-- - Exports ADFS metadata to a file
+<!-- ABOUT THE PROJECT -->
+## About The Project
+ADFS scripts
+
+
+<!-- LICENSE -->
+## License
+Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTACT -->
+## Contact
+
+Linkedin - [Fardin Barashi]([https://twitter.com/your_username](https://www.linkedin.com/in/fardin-barashi-a56310a2/)) - email@example.com
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
