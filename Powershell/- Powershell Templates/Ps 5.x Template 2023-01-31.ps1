@@ -1,13 +1,13 @@
-﻿<#
+<#
 System requirements
-PSVersion                      5.1.19041.2364                                                                                                       
-PSEdition                      Desktop                                                                                                              
-PSCompatibleVersions           {1.0, 2.0, 3.0, 4.0...}                                                                                              
-BuildVersion                   10.0.19041.2364                                                                                                      
-CLRVersion                     4.0.30319.42000                                                                                                      
-WSManStackVersion              3.0                                                                                                                  
-PSRemotingProtocolVersion      2.3                                                                                                                  
-SerializationVersion           1.1.0.1      
+PSVersion                      5.1.19041.2364
+PSEdition                      Desktop
+PSCompatibleVersions           1.0, 2.0, 3.0, 4.0
+BuildVersion                   10.0.19041.2364
+CLRVersion                     4.0.30319.42000
+WSManStackVersion              3.0
+PSRemotingProtocolVersion      2.3
+SerializationVersion           1.1.0.1
 
 About Script : Template for Ps-5 Scripts
 Author : Fardin Barashi
@@ -16,9 +16,8 @@ Description : A quick startup-template
 Version : 1.0
 Release day : 2023-01-31
 Github Link  : https://github.com/fardinbarashi
-News : 
-
-
+News :
+ 
 #>
 
 #----------------------------------- Settings ------------------------------------------
