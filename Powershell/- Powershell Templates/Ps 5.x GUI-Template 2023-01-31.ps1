@@ -1,27 +1,24 @@
 ﻿<#
-.SYNOPSIS
-This GUI allows you to remove local profiles from remote servers with Wmi.
+System requirements
+PSVersion                      5.1.19041.2364                                                                                                       
+PSEdition                      Desktop                                                                                                              
+PSCompatibleVersions           {1.0, 2.0, 3.0, 4.0...}                                                                                              
+BuildVersion                   10.0.19041.2364                                                                                                      
+CLRVersion                     4.0.30319.42000                                                                                                      
+WSManStackVersion              3.0                                                                                                                  
+PSRemotingProtocolVersion      2.3                                                                                                                  
+SerializationVersion           1.1.0.1      
 
-.DESCRIPTION
-This GUI allows you to remove local profiles from remote servers. Compatible with Windows 7 and above operating
-systems with Wmi. 
-Powershell GUI app to remove remote profiles
-The PsGuiRolf is a Scanner that is using PowerShell as a GUI app . PsGuiRolf helps you scan computers on your local network for user profiles and provides you with useful information about each profile. With this app, you can quickly view the path, last login, current login status, and SID for each profile. Additionally, you can remove selected profiles with just a few clicks.
-Features: Easy to use interface: The app has an intuitive interface that allows you to easily scan computers, view profile details, and remove profiles. Profile scanning: You can scan computers on your local network to find all user profiles on each computer. Profile details: The app provides you with detailed information about each profile, including the path, last login, current login status, and SID. Profile removal: You can select one or more profiles and remove them with just a few clicks. User loading: You can load a list of users into the app, which will then be used to scan computers and find their profiles.
-Overall, PsGuiRolf is a powerful and easy-to-use tool that can help you manage user profiles on your local network.
+About Script : Template for Ps-5 Scripts
+Author : Fardin Barashi
+Title : Template Powershell version 5.x
+Description : A quick startup-template
+Version : 1.0
+Release day : 2023-01-31
+Github Link  : https://github.com/fardinbarashi
+News : 
 
-Aslong as your network allows wmi and you have the rights to remove profiles it will work fine.
-right-click on the Sids Field and popup menu will appear to delete the profiles.
 
-.NOTES
-Author: Fardin.Barashi@gmail.copm
-Created: 03 Mars 2018
-Modified: 05 Mars 2018
-Version: 1.0 
--> Initial Build
-
-Version: 1.02
--> Added remote open \\hostname\c:\users - Row 379
 #>
 
 #----------------------------------- Settings ------------------------------------------
