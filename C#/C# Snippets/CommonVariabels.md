@@ -1,7 +1,6 @@
 // string
 ```
 string value = "12";
-sting firstName;
 
 ```
 
