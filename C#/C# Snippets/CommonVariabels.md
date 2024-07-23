@@ -48,8 +48,8 @@ Console.Write("What is your Name ");
 string name = Console.ReadLine();
 ```
 
+// Check if string value is less then value 12
 ```
-Check if string value is less then value 12
 string xValue = "12";
 if (xValue.Length != 12)
 {
