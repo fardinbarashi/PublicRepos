@@ -46,13 +46,13 @@ Try
  # Run Query
  # Get allFiles in $FilesPath
  $GetFiles = Get-ChildItem -Path $FilesPath -Recurse | Select-Object -ExpandProperty Name
+ # String to check if all files exist
+ $allFilesExist = $true
 
 foreach ($Files in $FileList) 
 { # Start foreach ($Files in $FileList) 
     if ($GetFiles -contains $GetFiles) 
      { # Start if ($GetFiles -contains $GetFiles) 
-        # String to check if all files exist
-        $allFilesExist = $true
         Write-Host "all Files Exist"
      } # End if ($GetFiles -contains $GetFiles) 
     
