@@ -41,10 +41,10 @@ Try
 
  # Run Query
  # Password that you want to crypt
-  $SecurePassword = "Ange lösenordet du vill kryptera"
+  $SecurePassword = Read-Host -AsSecureString "Type in the password that you want to crypt"
 
   # Convert to a SecureString, crypt the string
-  $EncryptedPassword = $SecurePassword | ConvertFrom-SecureString
+  $EncryptedPassword = ConvertFrom-SecureString -SecureString $SecurePassword
 
   # Save in a textfile
   $EncryptedPassword | Out-File -FilePath "C:\Temp\Password.txt"
