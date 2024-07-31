@@ -9,12 +9,12 @@ WSManStackVersion              3.0
 PSRemotingProtocolVersion      2.3
 SerializationVersion           1.1.0.1
 
-About Script : If filelist in folder
+About Script : 
 Author : Fardin Barashi
-Title : If filelist in folder
+Title :  Uses a filelist as a check in folder
 Description : Uses a filelist as a check in folder
 Version : 1.0
-Release day : 2023-01-31
+Release day : 2023-07-29
 Github Link  : https://github.com/fardinbarashi
 News :
  
