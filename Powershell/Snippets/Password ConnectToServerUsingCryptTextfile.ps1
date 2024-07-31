@@ -34,8 +34,8 @@ Write-Host ".. Starting TranScript"
 # Error-Settings
 $ErrorActionPreference = 'Continue'
 #----------------------------------- Start Script ------------------------------------------
-# Section 1 : Create and save crypt password in a textfile
-$Section = "Section 1 : Create and save crypt password in a textfile"
+# Section 1 : decrypt password in a textfile, connect to server
+$Section = "Section 1 : decrypt password in a textfile, connect to server"
 Try
 { # Start Try, $Section
  Get-Date -Format "yyyy/MM/dd HH:mm:ss"
