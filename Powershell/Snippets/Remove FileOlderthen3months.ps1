@@ -22,12 +22,17 @@ News :
 
 
 
+
 #----------------------------------- Settings ------------------------------------------
 # Transcript
 $ScriptName = $MyInvocation.MyCommand.Name
 $LogFileDate = (Get-Date -Format yyyy/MM/dd/HH.mm.ss)
 $TranScriptLogFile = "$PSScriptRoot\Logs\$ScriptName - $LogFileDate.Txt" 
 $StartTranscript = Start-Transcript -Path $TranScriptLogFile -Force
+
+
+$archivePath = "C:\temp\"
+
 Get-Date -Format "yyyy/MM/dd HH:mm:ss"
 Write-Host ".. Starting TranScript"
 
@@ -72,6 +77,8 @@ Try
       } # End else,if ($item.LastWriteTime -lt $dateLimit) 
     
     } # End foreach ($item in $GetArchiveAstatitems) 
+
+ Write-Host $Section... "100%" -ForegroundColor Green
  
  Write-Host ""
 } # End Try
@@ -88,9 +95,3 @@ Catch
 
 #----------------------------------- End Script ------------------------------------------
 Stop-Transcript
-
-
-
-
-
-  
