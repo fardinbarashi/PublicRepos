@@ -30,8 +30,8 @@ $LogFileDate = (Get-Date -Format yyyy/MM/dd/HH.mm.ss)
 $TranScriptLogFile = "$PSScriptRoot\Logs\$ScriptName - $LogFileDate.Txt" 
 $StartTranscript = Start-Transcript -Path $TranScriptLogFile -Force
 
-
-$archivePath = "C:\temp\"
+$dateLimit = (Get-Date).AddMonths(-3) # Datelimit
+$archivePath = "C:\temp\" # Folder to check 
 
 Get-Date -Format "yyyy/MM/dd HH:mm:ss"
 Write-Host ".. Starting TranScript"
@@ -47,14 +47,11 @@ Try
  Write-Host $Section... "0%" -ForegroundColor Yellow
 
  # Run Query
-  # Remove files that are older then 3 months in a folder.
-   # Datelimit
-   $dateLimit = (Get-Date).AddMonths(-3)
-
+  # Remove files that are older then 3 months in a folder.   
    # Get all items in archivePath
-   $GetArchiveAstatitems = Get-ChildItem -Path $archivePath -Recurse
-   foreach ($item in $GetArchiveAstatitems) 
-    { # Start foreach ($item in $GetArchiveAstatitems) 
+   $GetArchiveitems = Get-ChildItem -Path $archivePath -Recurse
+   foreach ($item in $GetArchiveitems) 
+    { # Start foreach ($item in $GetArchiveitems) 
        
        # Check Folders
        if ($item.PSIsContainer) 
@@ -76,7 +73,7 @@ Try
           } # End if ($item.LastWriteTime -lt $dateLimit) 
       } # End else,if ($item.LastWriteTime -lt $dateLimit) 
     
-    } # End foreach ($item in $GetArchiveAstatitems) 
+    } # End foreach ($item in $GetArchiveitems) 
 
  Write-Host $Section... "100%" -ForegroundColor Green
  
