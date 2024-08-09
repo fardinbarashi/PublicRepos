@@ -110,3 +110,23 @@ decimal? age = null;
 string? age = null;
 
 ```
+
+
+//  If Statements
+```
+
+
+```
+
+//  Advanced If Statements
+```
+
+
+```
+// Switch Statements
+```
+
+
+```
+
+
