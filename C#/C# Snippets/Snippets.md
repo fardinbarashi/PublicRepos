@@ -112,11 +112,6 @@ string? age = null;
 ```
 
 
-//  If Statements
-```
-
-```
-
 //  Advanced If Statements
 ```
 Console.Write(value: "What is your first Name");
@@ -142,9 +137,30 @@ else if (lastName.ToLower() == "P")
 
 
 ```
-// Switch Statements
+
+// Arrys
+
 ```
 
+string[] firstNames = new string[5];
+
+firstNames[0] = "A";
+firstNames[1] = "B";
+firstNames[2] = "C";
+firstNames[3] = "D";
+firstNames[4] = "E";
+
+Console.WriteLine(value: $" the values in the array firstNames is {firstNames[0]}, {firstNames[1]}");
+Console.WriteLine(firstNames[firstNames.Length -1 ]);
+
+```
+
+// Split Array 
+
+```
+String secNamesData = "A,B,C,D,E";
+string[] secNames = secNamesData.Split(separator: ",");
+Console.WriteLine(value: $" the value 2 in the array secNames is  {(secNames[2])} ");
 
 ```
 
