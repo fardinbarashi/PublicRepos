@@ -161,7 +161,118 @@ Console.WriteLine(firstNames[firstNames.Length -1 ]);
 String secNamesData = "A,B,C,D,E";
 string[] secNames = secNamesData.Split(separator: ",");
 Console.WriteLine(value: $" the value 2 in the array secNames is  {(secNames[2])} ");
+```
+
+// Dictionary String
+
+```
+Dictionary<string, string> lookup = new Dictionary<string, string>();
+
+lookup[key: "animal"] = "Not a human";
+lookup[key: "fish"] = "Not a human that swims";
+lookup[key: "human"] = "us";
+
+Console.WriteLine(value: $"what is a fish: {lookup[key:"fish"]}");
 
 ```
 
+// Dictionary Int
+```
+Dictionary<int, string> employees = new Dictionary<int, string>();
+employees[key:100] = "A";
+employees[key: 80] = "B";
+employees[key: 40] = "C";
+employees[key: 20] = "D";
 
+Console.WriteLine(value: $"Write employees id with the id 80 {employees[key: 80]}");
+Console.WriteLine(value: $"Write employees id with the id 80 {employees[key: 100]}");
+```
+
+// Foreach
+```
+string letters = "A,B,C,D";
+List<string> values = letters.Split(',').ToList();
+
+foreach (string value in values)
+{
+   Console.WriteLine(value);
+}
+```
+
+// For loops
+```
+// Stop before 10
+for (int i = 0; i < 10; i++)
+{
+    Console.WriteLine(value: $"the value of i is {i}");
+}
+```
+
+// For loops Write out the string
+```
+string data = "A,B,C,D,E";
+List<string> values = data.Split(separator: ',').ToList();
+
+
+for (int i = 0; i < values.Count; i++)
+{
+    Console.WriteLine(values[i]);
+}
+```
+
+// For loops Count and add
+```
+// Count
+List<decimal> charges = new List<decimal>();
+charges.Add(item: 25M);
+charges.Add(item: 25M);
+
+decimal total = 0;
+for (int i = 0; i < charges.Count; i++)
+{
+    total += charges[i];
+}
+
+Console.WriteLine(value: $"the value of charge is {total}");
+```
+
+
+
+// Do while loops
+```
+do
+{
+  // run the code at least once
+} while (true);
+
+
+} while (true);
+{
+ // run the code 0 or more times
+}
+
+```
+
+// Do while loops
+```
+bool isValidAge;
+int age;
+do
+{
+    Console.Write(value: " is your age ");
+    string ageText = Console.ReadLine();
+
+    isValidAge = int.TryParse(ageText, out age);
+
+    if (isValidAge == false)
+    {
+        Console.WriteLine(value: "That was an invalid age");
+
+    }
+} 
+
+while (isValidAge == false);
+
+Console.WriteLine(value: $"your age is {age}");
+
+```
