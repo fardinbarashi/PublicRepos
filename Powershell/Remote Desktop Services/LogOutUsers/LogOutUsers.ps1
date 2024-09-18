@@ -1,4 +1,4 @@
-﻿<#
+<#
 System requirements
 PSVersion                      5.1.19041.2364
 PSEdition                      Desktop
@@ -41,10 +41,12 @@ Try
   Get-Date -Format "yyyy/MM/dd HH:mm:ss"
    Write-Host $Section... "0%" -ForegroundColor Yellow
     # Run Query
+    Write-host "Get All logged in RDP-Users, 0%..."
     Write-Host ""
 
-    $Getsessions = Get-RDUserSession -Verbose   
-   
+    # Run Query Filter and select only RDP-sessions
+    $Getsessions = Get-RDUserSession -Verbose
+       
    Write-Host ""
    Write-Host $Section... "100%" -ForegroundColor Green
    
@@ -74,8 +76,8 @@ Try
     # Send a mess to every user that is logged in
     Foreach ($User in $Getsessions)
      { # Start Foreach ($User in $Getsessions)
-       Write-Host "Logging off user: $($UserToGetMess.sessionUserName) On Hostserver $($UserToGetMess.HostServer) with SessionID $($UserToGetMess.UnifiedSessionId)"  
-       msg $User.UnifiedSessionId "You will  be logged out in 2 min $($Getdate) according to X daily routine"  
+       Write-Host "Logging off user: $($User.UserName) On Hostserver $($User.HostServer) with SessionID $($User.UnifiedSessionId)"  
+       msg $User.UnifiedSessionId "You will  be logged out in 2 min $($Getdate) according to daily routine"  
      } # Start Foreach ($User in $Getsessions)
     
     # Wait 120 Sec
@@ -84,7 +86,7 @@ Try
     # Log out users
     Foreach ($LoggedInUser in $Getsessions) 
     { # Start Foreach ($LoggedInUser in $Getsessions) 
-      Invoke-RDUserLogoff -HostServer $session.HostServer -UnifiedSessionID $session.UnifiedSessionId -Force -Verbose
+      Invoke-RDUserLogoff -HostServer $LoggedInUser.HostServer -UnifiedSessionID $LoggedInUser.UnifiedSessionId -Force -Verbose
     } # End Foreach ($LoggedInUser in $Getsessions) 
 
     Write-Host "$Section... 100%" -ForegroundColor Green
