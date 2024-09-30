@@ -1,0 +1,49 @@
+{
+  "Fundings": [
+    {
+      "FundID": "01",
+      "FundName": "AName"
+    },
+    {
+      "FundID": "02",
+      "FundName": "BName"
+    },
+    {
+      "FundID": "03",
+      "FundName": "CName"
+    },
+    {
+      "FundID": "04",
+      "FundName": "DName"
+    },
+    {
+      "FundID": "05",
+      "FundName": "EName"
+    },
+    {
+      "FundID": "06",
+      "FundName": "FName"
+    },
+    {
+      "FundID": "07",
+      "FundName": "A1Name"
+    },
+    {
+      "FundID": "08",
+      "FundName": "B1Name"
+    },
+    {
+      "FundID": "09",
+      "FundName": "B2Name"
+    },
+    {
+      "FundID": "10",
+      "FundName": "B3Name"
+    }
+  ],
+  "Max": {
+    "Funds": 24,
+    "Files": 16,
+    "TotalMaxFiles": 384
+  }
+}

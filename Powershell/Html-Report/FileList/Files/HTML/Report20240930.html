@@ -1,0 +1,81 @@
+﻿<html>
+<head>
+    <meta charset='UTF-8'>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .green {
+            color: green;
+        }
+        .red {
+            color: red;
+            font-weight: bold;
+        }
+        .summary {
+            font-weight: bold;
+        }
+        .paragraph { 
+                font-family: Arial, sans-serif; font-size: smaller;
+            }
+    </style>
+</head>
+<body>
+    <h1>Compiled Report  20240930</h1>
+    <p>This Report contains three tables with data about files from  Server 1,  Server 2,  Server 3, .</p><h2>Table 1: Summary of total number of funds per server and total number of files per server</h2>
+<p class="paragraph">Green text: Approved value, correct number of files per fund per server | Red text: Not approved value, files are missing | Yellow background: There are more than 24 or 384 files</p>
+<p class="paragraph">Total number of funds should be: 24 | Number of files per server should be: 384</p>
+
+    <table>
+        <tr>
+            <th>Server</th>
+            <th>Total Funds </th>
+            <th>Total Files</th>
+        </tr>
+        <tr>
+            <td> Server 1</td>
+            <td style='color: red; font-weight: bold;'>0</td>
+            <td style='color: red; font-weight: bold;'>21</td>
+        </tr>
+        <tr>
+            <td> Server 2</td>
+            <td style='color: red; font-weight: bold;'>0</td>
+            <td style='color: red; font-weight: bold;'>21</td>
+        </tr>
+        <tr>
+        <td> Server 3</td>
+            <td style='color: red; font-weight: bold;'>0</td>
+            <td style='color: red; font-weight: bold;'>21</td>
+        </tr>		
+    </table>    <h2>Tabell 2: Files per Fundings and per Server</h2>
+    <p class="paragraph">Green text: Approved value, correct number of files in the fund | Red text: Not approved value, files are missing in the fund | Yellow background: There are more than 16 files in this fund</p>
+    <table>
+        <tr>
+            <th>Fundings ID</th>
+            <th> Server 1</th>
+            <th> Server 3</th>
+            <th> Server 2</th>
+        </tr></table>    <h2>Tabell 3: Filestatus per Server</h2>
+    <p class="paragraph">Green text: Approved value, the file exists on the server | Red text: Not approved value, the file is missing on the server</p>´
+    <table>
+        <tr>
+            <th>FileName</th>
+            <th>Fundings</th>
+            <th>Server1</th>
+            <th>Server2</th>
+            <th>Server3</th>
+        </tr></table></body></html>
