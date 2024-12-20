@@ -115,15 +115,14 @@ Catch
 } # End Catch
 
 #-----------------------------------------------------------------------------
-# Section 3 : Save Output as file
-$Section = "Section 3 : Save Output as file"
+# Section 3 : Save Output as csv
+$Section = "Section 3 : Save Output as csv"
 Try
 { # Start Try, $Section
  Get-Date -Format "yyyy/MM/dd HH:mm:ss"
  Write-Host $Section... "0%" -ForegroundColor Yellow
 
  # Run Query
- # Exportera till CSV
  $outputFile = "C:\Temp\WindowsServerRoles.csv"
  $serverInfoList | Export-Csv -Path $outputFile -NoTypeInformation -Encoding UTF8 -Force
  Write-Host "Server roles and features report generated: $outputFile" -ForegroundColor Green
