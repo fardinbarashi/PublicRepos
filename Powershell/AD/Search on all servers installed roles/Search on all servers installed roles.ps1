@@ -73,7 +73,7 @@ Try
     $serverName = $server.Name
     $ipAddress = $server.IPv4Address
 
-    Write-Host "Processing $serverName ($ipAddress) 0%..." -ForegroundColor Yellow
+    Write-Host "Processing $serverName ($ipAddress)..." -ForegroundColor Yellow
     try 
      { # Start try
 
@@ -90,7 +90,7 @@ Try
        RolesAndFeatures = ($rolesAndFeatures | Select-Object -ExpandProperty DisplayName -ErrorAction SilentlyContinue) -join ", "
         } # End  # Start $serverInfoList += [PSCustomObject]
      } # End Try
-    
+  
     catch 
     { # Start Catch    
       Write-Host "Failed to retrieve data for $serverName. Error: $($_.Exception.Message)" -ForegroundColor Red
@@ -99,8 +99,9 @@ Try
       IPAddress = $ipAddress
       RolesAndFeatures = "Failed to retrieve data"
        } # End $serverInfoList += [PSCustomObject]  
-    } # End Catch    
- }# End foreach ($server in $servers) 
+    } # End Catch
+
+ } # End foreach ($server in $servers) 
  Write-Host ""
 } # End Try, $Section
 
