@@ -9,4 +9,7 @@ Here you will find a collection of my projects, contributions, and a bit about m
 ## 🧑‍💻 About Me
 - 🔭 I’m currently working on
 1). HR Onboarding, Easy on-off boarding tool in C# for EntraID
-
+2). ServerWatcher, A way to monitor services, diskspace, health and create maps onprem servern in C# and Powershell
+3). AzureTenetServiceChecker, The name should tell what the app does. C# and Powershell
+4). ToDo-Helper, A app to remind you if object is going to expire soon. C# and Powershell
+5). And some Powershell tools.
