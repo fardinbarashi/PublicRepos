@@ -78,7 +78,7 @@ Try
      { # Start try
 
        # Invoke Commands
-       $rolesAndFeatures = Invoke-Command -ComputerName $serverName -ScriptBlock -Verbose { # Start Scriptblock
+       $rolesAndFeatures = Invoke-Command -ComputerName $serverName -ScriptBlock { # Start Scriptblock
        Import-Module ServerManager
        Get-WindowsFeature | Where-Object { $_.Installed -eq $true } | Select-Object -Property DisplayName, Installed
         } -ErrorAction Stop # End Scriptblock
