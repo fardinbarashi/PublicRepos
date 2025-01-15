@@ -1,4 +1,4 @@
-﻿<#
+<#
 System requirements
 PSVersion                      5.1.19041.2364
 PSEdition                      Desktop
@@ -62,7 +62,7 @@ Try
  $Server = Read-Host "Enter the server name or IP (default: localhost)" 
  if (-not $Server) { $Server = "localhost" }
 
- # Function to test a single port
+ # Function to test ports
  function Test-Port { # Start function Test-Port 
     param (
         [string]$Server,
@@ -112,6 +112,48 @@ Try
     } # end catch
  } # End # Start function Test-Port 
  Write-Host ""
+
+ # Results array
+$Results = @()
+
+# Test fixed ports
+foreach ($PortInfo in $Ports) 
+ { # Start foreach ($PortInfo in $Ports) 
+    $Port = $PortInfo.Port
+    $Protocol = $PortInfo.Protocol
+    $Service = $PortInfo.Service
+
+    $Status = Test-Port -Server $Server -Port $Port -Protocol $Protocol
+    $Results += [PSCustomObject]@{ # Start $Results += [PSCustomObject]@
+        Port     = $Port
+        Protocol = $Protocol
+        Service  = $Service
+        Status   = $Status
+   } # End $Results += [PSCustomObject]@
+} # end foreach ($PortInfo in $Ports) 
+
+# Test dynamic port range for TCP/UDP
+foreach ($Port in $DynamicPorts) { # Start foreach ($Port in $DynamicPorts)
+    $TCPStatus = Test-Port -Server $Server -Port $Port -Protocol "TCP"
+    $UDPStatus = Test-Port -Server $Server -Port $Port -Protocol "UDP"
+
+    if ($TCPStatus -eq "Open" -or $UDPStatus -eq "Open") { # Start if ($TCPStatus -eq "Open" -or $UDPStatus -eq "Open")
+        $Results += [PSCustomObject]@{ # Start $Results += [PSCustomObject]@
+            Port     = $Port
+            Protocol = "TCP/UDP"
+            Service  = "Dynamic Port"
+            Status   = "Open"
+        }  # End $Results += [PSCustomObject]@
+    } # End if ($TCPStatus -eq "Open" -or $UDPStatus -eq "Open")
+} # End foreach ($Port in $DynamicPorts)
+
+# Output results
+$Results | Format-Table -AutoSize
+
+# Export to CSV
+$Results | Export-Csv -Path "$PSScriptRoot\PortTestResults.csv" -NoTypeInformation -Force -Encoding UTF8
+
+Write-Host "Port test completed. Results saved to PortTestResults.csv in the current directory." -ForegroundColor Green
 
 } # End Try, $Section
 
