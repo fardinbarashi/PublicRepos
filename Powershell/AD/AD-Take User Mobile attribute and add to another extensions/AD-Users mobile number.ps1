@@ -39,7 +39,7 @@ Get-Date -Format "yyyy/MM/dd HH:mm:ss"
 Write-Host ".. Starting TranScript"
 
 # Modules
-Import-Module 
+Import-Module ActiveDirectory
 
 # Filter
 $Filter = { (mobile -like "*") -and (objectClass -eq "user") }
