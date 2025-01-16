@@ -1,0 +1,2391 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20250116090802
+Username: TEST\fardin
+RunAs User: TEST\fardin
+Configuration Name: 
+Machine: DC1 (Microsoft Windows NT 10.0.20348.0)
+Host Application: C:\Windows\system32\WindowsPowerShell\v1.0\PowerShell_ISE.exe
+Process ID: 1140
+PSVersion: 5.1.20348.2227
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.20348.2227
+BuildVersion: 10.0.20348.2227
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+2025-01-16 09:08:02
+.. Starting TranScript
+PS>TerminatingError(Import-Module): "Cannot process command because of one or more missing mandatory parameters: Name."
+Import-Module : Cannot process command because of one or more missing mandatory parameters: Name.
+At C:\Users\fardin\Desktop\AD-Take User Mobile attribute and add to another extensions\AD-Users mobile number.ps1:42 cha
+r:1
++ Import-Module
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Import-Module], ParameterBindingException
+    + FullyQualifiedErrorId : MissingMandatoryParameter,Microsoft.PowerShell.Commands.ImportModuleCommand
+>> TerminatingError(): "The pipeline has been stopped."
+PS C:\Windows\system32> # Importera AD-modulen
+Import-Module ActiveDirectory
+
+# Definiera filter för att hitta användare med mobilenummer
+$Filter = { (mobile -like "*") -and (objectClass -eq "user") }
+
+# Hämta alla användare med mobilenummer
+$Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttribute2
+
+# Iterera över varje användare och uppdatera extensionAttribute2
+foreach ($User in $Users) {
+    $MobileNumber = $User.mobile
+
+    if ($MobileNumber) {
+        # Ta bort alla icke-numeriska tecken förutom + 
+        $CleanedNumber = $MobileNumber -replace '[^0-9+]', ''
+
+        # Kontrollera om numret börjar med en nolla och byt ut mot +46
+        if ($CleanedNumber -match '^0') {
+            $FormattedNumber = $CleanedNumber -replace '^0', '+46'
+        } else {
+            $FormattedNumber = $CleanedNumber
+        }
+
+        # Uppdatera extensionAttribute2 med det formaterade numret
+        Set-ADUser -Identity $User.SamAccountName -Replace @{extensionAttribute2 = $FormattedNumber}
+
+        # Logga ändringen
+        Write-Host "Updated user $($User.SamAccountName): $MobileNumber -> $FormattedNumber" -ForegroundColor Green
+    }
+    else {
+        Write-Host "No mobile number for user $($User.SamAccountName)" -ForegroundColor Yellow
+    }
+}
+
+Write-Host "All users processed!" -ForegroundColor Cyan
+
+PS C:\Windows\system32> TerminatingError(Get-ADUser): "One or more properties are invalid.
+Parameter name: extensionAttribute2"
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.GetADUser
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.GetADUser
+
+All users processed!
+PS C:\Windows\system32> # Importera AD-modulen
+Import-Module ActiveDirectory
+
+# Definiera filter för att hitta användare med mobilenummer
+$Filter = { (mobile -like "*") -and (objectClass -eq "user") }
+
+# Hämta alla användare med mobilenummer
+$Users = Get-ADUser -Filter $Filter -Properties mobile, middleName
+
+# Iterera över varje användare och uppdatera extensionAttribute2
+foreach ($User in $Users) {
+    $MobileNumber = $User.mobile
+
+    if ($MobileNumber) {
+        # Ta bort alla icke-numeriska tecken förutom + 
+        $CleanedNumber = $MobileNumber -replace '[^0-9+]', ''
+
+        # Kontrollera om numret börjar med en nolla och byt ut mot +46
+        if ($CleanedNumber -match '^0') {
+            $FormattedNumber = $CleanedNumber -replace '^0', '+46'
+        } else {
+            $FormattedNumber = $CleanedNumber
+        }
+
+        # Uppdatera extensionAttribute2 med det formaterade numret
+        Set-ADUser -Identity $User.SamAccountName -Replace @{extensionAttribute2 = $FormattedNumber}
+
+        # Logga ändringen
+        Write-Host "Updated user $($User.SamAccountName): $MobileNumber -> $FormattedNumber" -ForegroundColor Green
+    }
+    else {
+        Write-Host "No mobile number for user $($User.SamAccountName)" -ForegroundColor Yellow
+    }
+}
+
+Write-Host "All users processed!" -ForegroundColor Cyan
+
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user Fardin: 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user sterog: 070.739-64,68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user natrom: 070-739-6-468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user bruban: 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user clibar: 070 739 64 68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user scolan: 070-739-645 0 -> +46707396450
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user petpar: 070 739 645 0 -> +46707396450
+All users processed!
+PS C:\Windows\system32> # Importera AD-modulen
+Import-Module ActiveDirectory
+
+# Definiera filter för att hitta användare med mobilenummer
+$Filter = { (mobile -like "*") -and (objectClass -eq "user") }
+
+# Hämta alla användare med mobilenummer
+$Users = Get-ADUser -Filter $Filter -Properties mobile, middleName
+
+# Iterera över varje användare och uppdatera extensionAttribute2
+foreach ($User in $Users) {
+    $MobileNumber = $User.mobile
+
+    if ($MobileNumber) {
+        # Ta bort alla icke-numeriska tecken förutom + 
+        $CleanedNumber = $MobileNumber -replace '[^0-9+]', ''
+
+        # Kontrollera om numret börjar med en nolla och byt ut mot +46
+        if ($CleanedNumber -match '^0') {
+            $FormattedNumber = $CleanedNumber -replace '^0', '+46'
+        } else {
+            $FormattedNumber = $CleanedNumber
+        }
+
+        # Uppdatera extensionAttribute2 med det formaterade numret
+        Set-ADUser -Identity $User.SamAccountName -Replace @{Office = $FormattedNumber}
+
+        # Logga ändringen
+        Write-Host "Updated user $($User.SamAccountName): $MobileNumber -> $FormattedNumber" -ForegroundColor Green
+    }
+    else {
+        Write-Host "No mobile number for user $($User.SamAccountName)" -ForegroundColor Yellow
+    }
+}
+
+Write-Host "All users processed!" -ForegroundColor Cyan
+
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: Office"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user Fardin: 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: Office"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user sterog: 070.739-64,68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: Office"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user natrom: 070-739-6-468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: Office"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user bruban: 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: Office"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user clibar: 070 739 64 68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: Office"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user scolan: 070-739-645 0 -> +46707396450
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: Office"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: Office
+At line:26 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{Office = ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user petpar: 070 739 645 0 -> +46707396450
+All users processed!
+PS C:\Windows\system32> # Importera AD-modulen
+Import-Module ActiveDirectory
+
+# Definiera filter för att hitta användare med mobilenummer
+$Filter = { (mobile -like "*") -and (objectClass -eq "user") }
+
+# Hämta alla användare med mobilenummer
+$Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttribute2
+
+# Lista för rapport
+$Report = @()
+
+# Iterera över varje användare och uppdatera extensionAttribute2
+foreach ($User in $Users) {
+    $MobileNumber = $User.mobile
+    $FormattedNumber = ""
+
+    if ($MobileNumber) {
+        # Ta bort alla icke-numeriska tecken förutom + 
+        $CleanedNumber = $MobileNumber -replace '[^0-9+]', ''
+
+        # Kontrollera om numret börjar med en nolla och byt ut mot +46
+        if ($CleanedNumber -match '^0') {
+            $FormattedNumber = $CleanedNumber -replace '^0', '+46'
+        } else {
+            $FormattedNumber = $CleanedNumber
+        }
+
+        # Uppdatera extensionAttribute2 med det formaterade numret
+        Set-ADUser -Identity $User.SamAccountName -Replace @{extensionAttribute2 = $FormattedNumber}
+
+        # Lägg till i rapporten
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            OriginalMobile = $MobileNumber
+            FormattedMobile = $FormattedNumber
+            Status = "Updated"
+        }
+
+        # Logga ändringen
+        Write-Host "Updated user $($User.SamAccountName): $MobileNumber -> $FormattedNumber" -ForegroundColor Green
+    }
+    else {
+        # Lägg till i rapporten att inget mobilnummer fanns
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            OriginalMobile = "N/A"
+            FormattedMobile = "N/A"
+            Status = "No Mobile Number"
+        }
+
+        Write-Host "No mobile number for user $($User.SamAccountName)" -ForegroundColor Yellow
+    }
+}
+
+# Generera HTML-rapport
+$HtmlReport = @"
+<html>
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>AD Mobile Number Update Report</h2>
+    <table>
+        <tr>
+            <th>SamAccountName</th>
+            <th>Original Mobile</th>
+            <th>Formatted Mobile</th>
+            <th>Status</th>
+        </tr>
+"@
+
+foreach ($Entry in $Report) {
+    $HtmlReport += @"
+        <tr>
+            <td>$($Entry.SamAccountName)</td>
+            <td>$($Entry.OriginalMobile)</td>
+            <td>$($Entry.FormattedMobile)</td>
+            <td>$($Entry.Status)</td>
+        </tr>
+"@
+}
+
+$HtmlReport += @"
+    </table>
+</body>
+</html>
+"@
+
+# Spara HTML-rapport
+$HtmlReportPath = "C:\Reports\ADMobileNumberUpdateReport.html"
+$HtmlReport | Out-File -FilePath $HtmlReportPath -Encoding utf8 -Force
+
+Write-Host "HTML report created at: $HtmlReportPath" -ForegroundColor Cyan
+
+PS C:\Windows\system32> TerminatingError(Get-ADUser): "One or more properties are invalid.
+Parameter name: extensionAttribute2"
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.GetADUser
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.GetADUser
+
+>> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user Fardin: 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user sterog: 070.739-64,68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user natrom: 070-739-6-468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user bruban: 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user clibar: 070 739 64 68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user scolan: 070-739-645 0 -> +46707396450
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user petpar: 070 739 645 0 -> +46707396450
+PS C:\Windows\system32> TerminatingError(Out-File): "Could not find a part of the path 'C:\Reports\ADMobileNumberUpdateReport.html'."
+Out-File : Could not find a part of the path 'C:\Reports\ADMobileNumberUpdateReport.html'.
+At line:110 char:15
++ ... HtmlReport | Out-File -FilePath $HtmlReportPath -Encoding utf8 -Force
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OpenError: (:) [Out-File], DirectoryNotFoundException
+    + FullyQualifiedErrorId : FileOpenFailure,Microsoft.PowerShell.Commands.OutFileCommand
+Out-File : Could not find a part of the path 'C:\Reports\ADMobileNumberUpdateReport.html'.
+At line:110 char:15
++ ... HtmlReport | Out-File -FilePath $HtmlReportPath -Encoding utf8 -Force
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OpenError: (:) [Out-File], DirectoryNotFoundException
+    + FullyQualifiedErrorId : FileOpenFailure,Microsoft.PowerShell.Commands.OutFileCommand
+
+HTML report created at: C:\Reports\ADMobileNumberUpdateReport.html
+PS C:\Windows\system32> # Importera AD-modulen
+Import-Module ActiveDirectory
+
+# Definiera filter för att hitta användare med mobilenummer
+$Filter = { (mobile -like "*") -and (objectClass -eq "user") }
+
+# Hämta alla användare med mobilenummer
+$Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttribute2
+
+# Lista för rapport
+$Report = @()
+
+# Iterera över varje användare och uppdatera extensionAttribute2
+foreach ($User in $Users) {
+    $MobileNumber = $User.mobile
+    $FormattedNumber = ""
+
+    if ($MobileNumber) {
+        # Ta bort alla icke-numeriska tecken förutom + 
+        $CleanedNumber = $MobileNumber -replace '[^0-9+]', ''
+
+        # Kontrollera om numret börjar med en nolla och byt ut mot +46
+        if ($CleanedNumber -match '^0') {
+            $FormattedNumber = $CleanedNumber -replace '^0', '+46'
+        } else {
+            $FormattedNumber = $CleanedNumber
+        }
+
+        # Uppdatera extensionAttribute2 med det formaterade numret
+        Set-ADUser -Identity $User.SamAccountName -Replace @{extensionAttribute2 = $FormattedNumber}
+
+        # Lägg till i rapporten
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            OriginalMobile = $MobileNumber
+            FormattedMobile = $FormattedNumber
+            Status = "Updated"
+        }
+
+        # Logga ändringen
+        Write-Host "Updated user $($User.SamAccountName): $MobileNumber -> $FormattedNumber" -ForegroundColor Green
+    }
+    else {
+        # Lägg till i rapporten att inget mobilnummer fanns
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            OriginalMobile = "N/A"
+            FormattedMobile = "N/A"
+            Status = "No Mobile Number"
+        }
+
+        Write-Host "No mobile number for user $($User.SamAccountName)" -ForegroundColor Yellow
+    }
+}
+
+# Generera HTML-rapport
+$HtmlReport = @"
+<html>
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>AD Mobile Number Update Report</h2>
+    <table>
+        <tr>
+            <th>SamAccountName</th>
+            <th>Original Mobile</th>
+            <th>Formatted Mobile</th>
+            <th>Status</th>
+        </tr>
+"@
+
+foreach ($Entry in $Report) {
+    $HtmlReport += @"
+        <tr>
+            <td>$($Entry.SamAccountName)</td>
+            <td>$($Entry.OriginalMobile)</td>
+            <td>$($Entry.FormattedMobile)</td>
+            <td>$($Entry.Status)</td>
+        </tr>
+"@
+}
+
+$HtmlReport += @"
+    </table>
+</body>
+</html>
+"@
+
+# Spara HTML-rapport
+$HtmlReportPath = "C:\temp\ADMobileNumberUpdateReport.html"
+$HtmlReport | Out-File -FilePath $HtmlReportPath -Encoding utf8 -Force
+
+Write-Host "HTML report created at: $HtmlReportPath" -ForegroundColor Cyan
+
+PS C:\Windows\system32> TerminatingError(Get-ADUser): "One or more properties are invalid.
+Parameter name: extensionAttribute2"
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.GetADUser
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.GetADUser
+
+>> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user Fardin: 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user sterog: 070.739-64,68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user natrom: 070-739-6-468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user bruban: 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user clibar: 070 739 64 68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user scolan: 070-739-645 0 -> +46707396450
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user petpar: 070 739 645 0 -> +46707396450
+HTML report created at: C:\temp\ADMobileNumberUpdateReport.html
+PS C:\Windows\system32> # Importera AD-modulen
+Import-Module ActiveDirectory
+
+# Definiera filter för att hitta användare med mobilenummer
+$Filter = { (mobile -like "*") -and (objectClass -eq "user") }
+
+# Hämta alla användare med mobilenummer
+$Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttribute2, DisplayName
+
+# Lista för rapport
+$Report = @()
+
+# Iterera över varje användare och uppdatera extensionAttribute2
+foreach ($User in $Users) {
+    $MobileNumber = $User.mobile
+    $FormattedNumber = ""
+
+    if ($MobileNumber) {
+        # Ta bort alla icke-numeriska tecken förutom + 
+        $CleanedNumber = $MobileNumber -replace '[^0-9+]', ''
+
+        # Kontrollera om numret börjar med en nolla och byt ut mot +46
+        if ($CleanedNumber -match '^0') {
+            $FormattedNumber = $CleanedNumber -replace '^0', '+46'
+        } else {
+            $FormattedNumber = $CleanedNumber
+        }
+
+        # Uppdatera extensionAttribute2 med det formaterade numret
+        Set-ADUser -Identity $User.SamAccountName -Replace @{extensionAttribute2 = $FormattedNumber}
+
+        # Lägg till i rapporten
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            DisplayName = $User.DisplayName
+            OriginalMobile = $MobileNumber
+            FormattedMobile = $FormattedNumber
+            Status = "Updated"
+        }
+
+        # Logga ändringen
+        Write-Host "Updated user $($User.DisplayName) ($($User.SamAccountName)): $MobileNumber -> $FormattedNumber" -ForegroundColor Green
+    }
+    else {
+        # Lägg till i rapporten att inget mobilnummer fanns
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            DisplayName = $User.DisplayName
+            OriginalMobile = "N/A"
+            FormattedMobile = "N/A"
+            Status = "No Mobile Number"
+        }
+
+        Write-Host "No mobile number for user $($User.DisplayName) ($($User.SamAccountName))" -ForegroundColor Yellow
+    }
+}
+
+# Generera HTML-rapport
+$HtmlReport = @"
+<html>
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>AD Mobile Number Update Report</h2>
+    <table>
+        <tr>
+            <th>SamAccountName</th>
+            <th>DisplayName</th>
+            <th>Original Mobile</th>
+            <th>Formatted Mobile</th>
+            <th>Status</th>
+        </tr>
+"@
+
+foreach ($Entry in $Report) {
+    $HtmlReport += @"
+        <tr>
+            <td>$($Entry.SamAccountName)</td>
+            <td>$($Entry.DisplayName)</td>
+            <td>$($Entry.OriginalMobile)</td>
+            <td>$($Entry.FormattedMobile)</td>
+            <td>$($Entry.Status)</td>
+        </tr>
+"@
+}
+
+$HtmlReport += @"
+    </table>
+</body>
+</html>
+"@
+
+# Spara HTML-rapport
+$HtmlReportPath = "C:\Reports\ADMobileNumberUpdateReport.html"
+$HtmlReport | Out-File -FilePath $HtmlReportPath -Encoding utf8 -Force
+
+Write-Host "HTML report created at: $HtmlReportPath" -ForegroundColor Cyan
+
+PS C:\Windows\system32> TerminatingError(Get-ADUser): "One or more properties are invalid.
+Parameter name: extensionAttribute2"
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.GetADUser
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.GetADUser
+
+>> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (Fardin): 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (sterog): 070.739-64,68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (natrom): 070-739-6-468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (bruban): 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (clibar): 070 739 64 68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (scolan): 070-739-645 0 -> +46707396450
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (petpar): 070 739 645 0 -> +46707396450
+PS C:\Windows\system32> TerminatingError(Out-File): "Could not find a part of the path 'C:\Reports\ADMobileNumberUpdateReport.html'."
+Out-File : Could not find a part of the path 'C:\Reports\ADMobileNumberUpdateReport.html'.
+At line:114 char:15
++ ... HtmlReport | Out-File -FilePath $HtmlReportPath -Encoding utf8 -Force
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OpenError: (:) [Out-File], DirectoryNotFoundException
+    + FullyQualifiedErrorId : FileOpenFailure,Microsoft.PowerShell.Commands.OutFileCommand
+Out-File : Could not find a part of the path 'C:\Reports\ADMobileNumberUpdateReport.html'.
+At line:114 char:15
++ ... HtmlReport | Out-File -FilePath $HtmlReportPath -Encoding utf8 -Force
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OpenError: (:) [Out-File], DirectoryNotFoundException
+    + FullyQualifiedErrorId : FileOpenFailure,Microsoft.PowerShell.Commands.OutFileCommand
+
+HTML report created at: C:\Reports\ADMobileNumberUpdateReport.html
+PS C:\Windows\system32> # Importera AD-modulen
+Import-Module ActiveDirectory
+
+# Definiera filter för att hitta användare med mobilenummer
+$Filter = { (mobile -like "*") -and (objectClass -eq "user") }
+
+# Hämta alla användare med mobilenummer
+$Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttribute2, DisplayName
+
+# Lista för rapport
+$Report = @()
+
+# Iterera över varje användare och uppdatera extensionAttribute2
+foreach ($User in $Users) {
+    $MobileNumber = $User.mobile
+    $FormattedNumber = ""
+
+    if ($MobileNumber) {
+        # Ta bort alla icke-numeriska tecken förutom + 
+        $CleanedNumber = $MobileNumber -replace '[^0-9+]', ''
+
+        # Kontrollera om numret börjar med en nolla och byt ut mot +46
+        if ($CleanedNumber -match '^0') {
+            $FormattedNumber = $CleanedNumber -replace '^0', '+46'
+        } else {
+            $FormattedNumber = $CleanedNumber
+        }
+
+        # Uppdatera extensionAttribute2 med det formaterade numret
+        Set-ADUser -Identity $User.SamAccountName -Replace @{extensionAttribute2 = $FormattedNumber}
+
+        # Lägg till i rapporten
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            DisplayName = $User.DisplayName
+            OriginalMobile = $MobileNumber
+            FormattedMobile = $FormattedNumber
+            Status = "Updated"
+        }
+
+        # Logga ändringen
+        Write-Host "Updated user $($User.DisplayName) ($($User.SamAccountName)): $MobileNumber -> $FormattedNumber" -ForegroundColor Green
+    }
+    else {
+        # Lägg till i rapporten att inget mobilnummer fanns
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            DisplayName = $User.DisplayName
+            OriginalMobile = "N/A"
+            FormattedMobile = "N/A"
+            Status = "No Mobile Number"
+        }
+
+        Write-Host "No mobile number for user $($User.DisplayName) ($($User.SamAccountName))" -ForegroundColor Yellow
+    }
+}
+
+# Generera HTML-rapport
+$HtmlReport = @"
+<html>
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>AD Mobile Number Update Report</h2>
+    <table>
+        <tr>
+            <th>SamAccountName</th>
+            <th>DisplayName</th>
+            <th>Original Mobile</th>
+            <th>Formatted Mobile</th>
+            <th>Status</th>
+        </tr>
+"@
+
+foreach ($Entry in $Report) {
+    $HtmlReport += @"
+        <tr>
+            <td>$($Entry.SamAccountName)</td>
+            <td>$($Entry.DisplayName)</td>
+            <td>$($Entry.OriginalMobile)</td>
+            <td>$($Entry.FormattedMobile)</td>
+            <td>$($Entry.Status)</td>
+        </tr>
+"@
+}
+
+$HtmlReport += @"
+    </table>
+</body>
+</html>
+"@
+
+# Spara HTML-rapport
+$HtmlReportPath = "C:\temp\ADMobileNumberUpdateReport.html"
+$HtmlReport | Out-File -FilePath $HtmlReportPath -Encoding utf8 -Force
+
+Write-Host "HTML report created at: $HtmlReportPath" -ForegroundColor Cyan
+
+PS C:\Windows\system32> TerminatingError(Get-ADUser): "One or more properties are invalid.
+Parameter name: extensionAttribute2"
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.GetADUser
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.GetADUser
+
+>> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (Fardin): 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (sterog): 070.739-64,68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (natrom): 070-739-6-468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (bruban): 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (clibar): 070 739 64 68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (scolan): 070-739-645 0 -> +46707396450
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (petpar): 070 739 645 0 -> +46707396450
+HTML report created at: C:\temp\ADMobileNumberUpdateReport.html
+PS C:\Windows\system32> # Importera AD-modulen
+Import-Module ActiveDirectory
+
+# Definiera filter för att hitta användare med mobilenummer
+$Filter = { (mobile -like "*") -and (objectClass -eq "user") }
+
+# Hämta alla användare med mobilenummer
+$Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttribute2, displayName
+
+# Lista för rapport
+$Report = @()
+
+# Iterera över varje användare och uppdatera extensionAttribute2
+foreach ($User in $Users) {
+    $MobileNumber = $User.mobile
+    $FormattedNumber = ""
+
+    if ($MobileNumber) {
+        # Ta bort alla icke-numeriska tecken förutom + 
+        $CleanedNumber = $MobileNumber -replace '[^0-9+]', ''
+
+        # Kontrollera om numret börjar med en nolla och byt ut mot +46
+        if ($CleanedNumber -match '^0') {
+            $FormattedNumber = $CleanedNumber -replace '^0', '+46'
+        } else {
+            $FormattedNumber = $CleanedNumber
+        }
+
+        # Uppdatera extensionAttribute2 med det formaterade numret
+        Set-ADUser -Identity $User.SamAccountName -Replace @{extensionAttribute2 = $FormattedNumber}
+
+        # Lägg till i rapporten
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            DisplayName = $User.DisplayName
+            OriginalMobile = $MobileNumber
+            FormattedMobile = $FormattedNumber
+            Status = "Updated"
+        }
+
+        # Logga ändringen
+        Write-Host "Updated user $($User.DisplayName) ($($User.SamAccountName)): $MobileNumber -> $FormattedNumber" -ForegroundColor Green
+    }
+    else {
+        # Lägg till i rapporten att inget mobilnummer fanns
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            DisplayName = $User.displayName
+            OriginalMobile = "N/A"
+            FormattedMobile = "N/A"
+            Status = "No Mobile Number"
+        }
+
+        Write-Host "No mobile number for user $($User.DisplayName) ($($User.SamAccountName))" -ForegroundColor Yellow
+    }
+}
+
+# Generera HTML-rapport
+$HtmlReport = @"
+<html>
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>AD Mobile Number Update Report</h2>
+    <table>
+        <tr>
+            <th>SamAccountName</th>
+            <th>DisplayName</th>
+            <th>Original Mobile</th>
+            <th>Formatted Mobile</th>
+            <th>Status</th>
+        </tr>
+"@
+
+foreach ($Entry in $Report) {
+    $HtmlReport += @"
+        <tr>
+            <td>$($Entry.SamAccountName)</td>
+            <td>$($Entry.DisplayName)</td>
+            <td>$($Entry.OriginalMobile)</td>
+            <td>$($Entry.FormattedMobile)</td>
+            <td>$($Entry.Status)</td>
+        </tr>
+"@
+}
+
+$HtmlReport += @"
+    </table>
+</body>
+</html>
+"@
+
+# Spara HTML-rapport
+$HtmlReportPath = "C:\temp\ADMobileNumberUpdateReport.html"
+$HtmlReport | Out-File -FilePath $HtmlReportPath -Encoding utf8 -Force
+
+Write-Host "HTML report created at: $HtmlReportPath" -ForegroundColor Cyan
+
+PS C:\Windows\system32> TerminatingError(Get-ADUser): "One or more properties are invalid.
+Parameter name: extensionAttribute2"
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.GetADUser
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.GetADUser
+
+>> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (Fardin): 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (sterog): 070.739-64,68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (natrom): 070-739-6-468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (bruban): 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (clibar): 070 739 64 68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (scolan): 070-739-645 0 -> +46707396450
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (petpar): 070 739 645 0 -> +46707396450
+HTML report created at: C:\temp\ADMobileNumberUpdateReport.html
+PS C:\Windows\system32> # Importera AD-modulen
+Import-Module ActiveDirectory
+
+# Definiera filter för att hitta användare med mobilenummer
+$Filter = { (mobile -like "*") -and (objectClass -eq "user") }
+
+# Hämta alla användare med mobilenummer
+$Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttribute2, Email
+
+# Lista för rapport
+$Report = @()
+
+# Iterera över varje användare och uppdatera extensionAttribute2
+foreach ($User in $Users) {
+    $MobileNumber = $User.mobile
+    $FormattedNumber = ""
+
+    if ($MobileNumber) {
+        # Ta bort alla icke-numeriska tecken förutom + 
+        $CleanedNumber = $MobileNumber -replace '[^0-9+]', ''
+
+        # Kontrollera om numret börjar med en nolla och byt ut mot +46
+        if ($CleanedNumber -match '^0') {
+            $FormattedNumber = $CleanedNumber -replace '^0', '+46'
+        } else {
+            $FormattedNumber = $CleanedNumber
+        }
+
+        # Uppdatera extensionAttribute2 med det formaterade numret
+        Set-ADUser -Identity $User.SamAccountName -Replace @{extensionAttribute2 = $FormattedNumber}
+
+        # Lägg till i rapporten
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            Email = $User.Email
+            OriginalMobile = $MobileNumber
+            FormattedMobile = $FormattedNumber
+            Status = "Updated"
+        }
+
+        # Logga ändringen
+        Write-Host "Updated user $($User.DisplayName) ($($User.SamAccountName)): $MobileNumber -> $FormattedNumber" -ForegroundColor Green
+    }
+    else {
+        # Lägg till i rapporten att inget mobilnummer fanns
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            Email = $User.Email
+            OriginalMobile = "N/A"
+            FormattedMobile = "N/A"
+            Status = "No Mobile Number"
+        }
+
+        Write-Host "No mobile number for user $($User.DisplayName) ($($User.SamAccountName))" -ForegroundColor Yellow
+    }
+}
+
+# Generera HTML-rapport
+$HtmlReport = @"
+<html>
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>AD Mobile Number Update Report</h2>
+    <table>
+        <tr>
+            <th>SamAccountName</th>
+            <th>Email</th>
+            <th>Original Mobile</th>
+            <th>Formatted Mobile</th>
+            <th>Status</th>
+        </tr>
+"@
+
+foreach ($Entry in $Report) {
+    $HtmlReport += @"
+        <tr>
+            <td>$($Entry.SamAccountName)</td>
+            <td>$($Entry.Email)</td>
+            <td>$($Entry.OriginalMobile)</td>
+            <td>$($Entry.FormattedMobile)</td>
+            <td>$($Entry.Status)</td>
+        </tr>
+"@
+}
+
+$HtmlReport += @"
+    </table>
+</body>
+</html>
+"@
+
+# Spara HTML-rapport
+$HtmlReportPath = "C:\temp\ADMobileNumberUpdateReport.html"
+$HtmlReport | Out-File -FilePath $HtmlReportPath -Encoding utf8 -Force
+
+Write-Host "HTML report created at: $HtmlReportPath" -ForegroundColor Cyan
+
+PS C:\Windows\system32> TerminatingError(Get-ADUser): "One or more properties are invalid.
+Parameter name: extensionAttribute2"
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.GetADUser
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.GetADUser
+
+>> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (Fardin): 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (sterog): 070.739-64,68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (natrom): 070-739-6-468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (bruban): 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (clibar): 070 739 64 68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (scolan): 070-739-645 0 -> +46707396450
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user  (petpar): 070 739 645 0 -> +46707396450
+HTML report created at: C:\temp\ADMobileNumberUpdateReport.html
+PS C:\Windows\system32> # Importera AD-modulen
+Import-Module ActiveDirectory
+
+# Definiera filter för att hitta användare med mobilenummer
+$Filter = { (mobile -like "*") -and (objectClass -eq "user") }
+
+# Hämta alla användare med mobilenummer
+$Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttribute2, Surname
+
+# Lista för rapport
+$Report = @()
+
+# Iterera över varje användare och uppdatera extensionAttribute2
+foreach ($User in $Users) {
+    $MobileNumber = $User.mobile
+    $FormattedNumber = ""
+
+    if ($MobileNumber) {
+        # Ta bort alla icke-numeriska tecken förutom + 
+        $CleanedNumber = $MobileNumber -replace '[^0-9+]', ''
+
+        # Kontrollera om numret börjar med en nolla och byt ut mot +46
+        if ($CleanedNumber -match '^0') {
+            $FormattedNumber = $CleanedNumber -replace '^0', '+46'
+        } else {
+            $FormattedNumber = $CleanedNumber
+        }
+
+        # Uppdatera extensionAttribute2 med det formaterade numret
+        Set-ADUser -Identity $User.SamAccountName -Replace @{extensionAttribute2 = $FormattedNumber}
+
+        # Lägg till i rapporten
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            LastName = $User.Surname
+            OriginalMobile = $MobileNumber
+            FormattedMobile = $FormattedNumber
+            Status = "Updated"
+        }
+
+        # Logga ändringen
+        Write-Host "Updated user $($User.Surname) ($($User.SamAccountName)): $MobileNumber -> $FormattedNumber" -ForegroundColor Green
+    }
+    else {
+        # Lägg till i rapporten att inget mobilnummer fanns
+        $Report += [PSCustomObject]@{
+            SamAccountName = $User.SamAccountName
+            LastName = $User.Surname
+            OriginalMobile = "N/A"
+            FormattedMobile = "N/A"
+            Status = "No Mobile Number"
+        }
+
+        Write-Host "No mobile number for user $($User.Surname) ($($User.SamAccountName))" -ForegroundColor Yellow
+    }
+}
+
+# Generera HTML-rapport
+$HtmlReport = @"
+<html>
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>AD Mobile Number Update Report</h2>
+    <table>
+        <tr>
+            <th>SamAccountName</th>
+            <th>Last Name</th>
+            <th>Original Mobile</th>
+            <th>Formatted Mobile</th>
+            <th>Status</th>
+        </tr>
+"@
+
+foreach ($Entry in $Report) {
+    $HtmlReport += @"
+        <tr>
+            <td>$($Entry.SamAccountName)</td>
+            <td>$($Entry.LastName)</td>
+            <td>$($Entry.OriginalMobile)</td>
+            <td>$($Entry.FormattedMobile)</td>
+            <td>$($Entry.Status)</td>
+        </tr>
+"@
+}
+
+$HtmlReport += @"
+    </table>
+</body>
+</html>
+"@
+
+# Spara HTML-rapport
+$HtmlReportPath = "C:\temp\ADMobileNumberUpdateReport.html"
+$HtmlReport | Out-File -FilePath $HtmlReportPath -Encoding utf8 -Force
+
+Write-Host "HTML report created at: $HtmlReportPath" -ForegroundColor Cyan
+
+PS C:\Windows\system32> TerminatingError(Get-ADUser): "One or more properties are invalid.
+Parameter name: extensionAttribute2"
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.GetADUser
+Get-ADUser : One or more properties are invalid.
+Parameter name: extensionAttribute2
+At line:8 char:10
++ $Users = Get-ADUser -Filter $Filter -Properties mobile, extensionAttr ...
++          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Get-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.GetADUser
+
+>> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (Fardin:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user Barashi (Fardin): 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (sterog:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user Rogers (sterog): 070.739-64,68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (natrom:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user Romanoff (natrom): 070-739-6-468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (bruban:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user Banner (bruban): 0707396468 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (clibar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user Barton (clibar): 070 739 64 68 -> +46707396468
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (scolan:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user Lang (scolan): 070-739-645 0 -> +46707396450
+PS C:\Windows\system32> TerminatingError(Set-ADUser): "The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2"
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Comman
+ds.SetADUser
+Set-ADUser : The specified directory service attribute or value does not exist
+Parameter name: extensionAttribute2
+At line:30 char:9
++         Set-ADUser -Identity $User.SamAccountName -Replace @{extensio ...
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (petpar:ADUser) [Set-ADUser], ArgumentException
+    + FullyQualifiedErrorId : ActiveDirectoryCmdlet:System.ArgumentException,Microsoft.ActiveDirectory.Management.Commands.SetADUser
+
+Updated user Parker (petpar): 070 739 645 0 -> +46707396450
+HTML report created at: C:\temp\ADMobileNumberUpdateReport.html
+2025-01-16 10:09:35
+.. Starting TranScript
+PS C:\Windows\system32> TerminatingError(Import-Module): "Cannot bind argument to parameter 'Name' because it is an empty array."
+Import-Module : Cannot bind argument to parameter 'Name' because it is an empty array.
+At C:\Users\fardin\Desktop\AD-Take User Mobile attribute and add to another extensions\AD-Users mobile number.ps1:42 cha
+r:1
++ Import-Module
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Import-Module], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorEmptyArrayNotAllowed,Microsoft.PowerShell.Commands.ImportM
+oduleCommand
+Import-Module : Cannot bind argument to parameter 'Name' because it is an empty array.
+At C:\Users\fardin\Desktop\AD-Take User Mobile attribute and add to another extensions\AD-Users mobile number.ps1:42 char:1
++ Import-Module
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Import-Module], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorEmptyArrayNotAllowed,Microsoft.PowerShell.Commands.ImportModuleCommand
+
+2025-01-16 10:09:36
+Section 1 : Get all users and selected properties ... 0%
+PS C:\Windows\system32> TerminatingError(Get-ADUser): "One or more properties are invalid.
+Parameter name: extensionAttribute2"
+2025-01-16 10:09:36
+ERROR on Section 1 : Get all users and selected properties
+WARNING: One or more properties are invalid.
+Parameter name: extensionAttribute2
+Stopping Transcript and Script!
+Transcript stopped, output file is C:\Users\fardin\Desktop\AD-Take User Mobile attribute and add to another extensions\Logs\AD-Users mobile number.ps1 - 2025-01-16-10.09.35.Txt
+2025-01-16 10:09:54
+.. Starting TranScript
+PS C:\Windows\system32> TerminatingError(Import-Module): "Cannot bind argument to parameter 'Name' because it is an empty array."
+Import-Module : Cannot bind argument to parameter 'Name' because it is an empty array.
+At C:\Users\fardin\Desktop\AD-Take User Mobile attribute and add to another extensions\AD-Users mobile number.ps1:42 cha
+r:1
++ Import-Module
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Import-Module], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorEmptyArrayNotAllowed,Microsoft.PowerShell.Commands.ImportM
+oduleCommand
+Import-Module : Cannot bind argument to parameter 'Name' because it is an empty array.
+At C:\Users\fardin\Desktop\AD-Take User Mobile attribute and add to another extensions\AD-Users mobile number.ps1:42 char:1
++ Import-Module
++ ~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Import-Module], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorEmptyArrayNotAllowed,Microsoft.PowerShell.Commands.ImportModuleCommand
+
+2025-01-16 10:09:56
+Section 1 : Get all users and selected properties ... 0%
+PS C:\Windows\system32> TerminatingError(Get-ADUser): "One or more properties are invalid.
+Parameter name: Lastname"
+2025-01-16 10:09:56
+ERROR on Section 1 : Get all users and selected properties
+WARNING: One or more properties are invalid.
+Parameter name: Lastname
+Stopping Transcript and Script!
+Transcript stopped, output file is C:\Users\fardin\Desktop\AD-Take User Mobile attribute and add to another extensions\Logs\AD-Users mobile number.ps1 - 2025-01-16-10.09.54.Txt
+PS C:\Windows\system32> Stop-Transcript
+**********************
+Windows PowerShell transcript end
+End time: 20250116102039
+**********************
