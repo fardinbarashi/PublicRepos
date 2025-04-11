@@ -28,7 +28,7 @@ Import-Module Microsoft.Graph.Identity.DirectoryManagement
 #------------------------------- Functions -------------------------------
 
 Function Function-Send-Mail-MsGraph {
-    $toFardin = ""
+    $to = ""
     $from = ""
     $errorMailSubject = "PowershellError from machine $($env:COMPUTERNAME)))"
     $errorMailBodyText = @"
