@@ -84,11 +84,8 @@ Try {
 Catch {
     Get-Date -Format "yyyy/MM/dd HH:mm:ss"
     Write-Host "ERROR on $Section" -ForegroundColor Red
-   
-    Write-Warning "StatusCode:" $_.Exception.Response.StatusCode.value__
-    Write-Warning "StatusDescription:" $_.Exception.Response.StatusDescription
-    Write-Warning "Response:" $_.Exception.Response.GetResponseStream()
-    Write-Warning $Error[0]
+    Write-Host "ERRORINFO : " $_.Exception.Message
+    Write-Host $Error[0]
    
     Write-Host "Stopping Transcript and Script!" -ForegroundColor Red
     Stop-Transcript
