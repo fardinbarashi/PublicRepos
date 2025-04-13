@@ -91,7 +91,7 @@ Import-Module Microsoft.Graph.Users
       ContentType = "Text"
       Content = $errorMailBodyText }
      ToRecipients = @(
-      @{ EmailAddress = @{ Address = $toFardin }}
+      @{ EmailAddress = @{ Address = $to }}
        )
       }
      SaveToSentItems = $false
