@@ -59,7 +59,7 @@ Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
 
 <!-- CONTACT -->
 ## Contact
-Linkedin - [Fardin Barashi]([https://twitter.com/your_username](https://www.linkedin.com/in/fardin-barashi-a56310a2/)) 
+Linkedin - [Fardin Barashi](https://www.linkedin.com/in/fardin-barashi-a56310a2/)
 
 
 
