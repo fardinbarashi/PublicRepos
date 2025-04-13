@@ -25,7 +25,7 @@ This script connects to **Microsoft Graph** using a **certificate-based App Regi
 
 ### Features
 
-- Retrieves **all users** from a group (handles **pagination** for large groups).
+- Retrieves all users from a group (handles **pagination** for large groups).
 - Collects user attributes:
   - Name, email, mobile, business phone, department, location, etc.
 - Attempts to fetch and include the **user's manager name**.
@@ -33,8 +33,8 @@ This script connects to **Microsoft Graph** using a **certificate-based App Regi
   - Empty values → `null`
   - Missing attributes → `FieldIsMissing<Attribute>`
 - Outputs:
-  - A full **CSV** of all group members
-  - A **log file** of any failed user lookups
+  - A CSV of all group members
+
 
 ---
 
