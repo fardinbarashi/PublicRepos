@@ -189,7 +189,6 @@ Try
             $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
             $errorMessage = "$timestamp | Failed Process user : $($user.UserPrincipalName)  $($member.Id) - Fel: $($_.Exception.Message)"
             Write-Host $errorMessage -ForegroundColor Red
-            $failedUsers += $errorMessage
             continue
           } # End catch, Get Users data in attributes 
 
