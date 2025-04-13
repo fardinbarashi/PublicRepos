@@ -2,14 +2,14 @@
 ## About The Project
 # GetMemberFromM365DynamicsGroup
 
-## 🔧 System Requirements
+## System Requirements
 
 - **PowerShell version**: 7+
 - **Microsoft Graph PowerShell SDK**
 
 ---
 
-## 📄 About the Script
+## About the Script
 
 **Author**: Fardin Barashi  
 **Title**: `GetMemberFromM365DynamicsGroup`  
@@ -19,11 +19,11 @@
 
 ---
 
-## ✨ Description
+## Description
 
 This script connects to **Microsoft Graph** using a **certificate-based App Registration**, and exports all members of a specified **Entra ID (Azure AD) group** to a CSV file.
 
-### 🔍 Features
+### Features
 
 - Retrieves **all users** from a group (handles **pagination** for large groups).
 - Collects user attributes:
@@ -39,7 +39,7 @@ This script connects to **Microsoft Graph** using a **certificate-based App Regi
 ---
 
 <!-- GETTING STARTED -->
-## ⚙️ Configuration
+## Configuration
 Change in row 65
 Change value 6000 in row to higher if you got more then 6000 users in group. $response = Get-MgGroupMember -GroupId $groupId -Top 6000
 Add app-id settings files\MsGraph\MsGraphSettings.json
