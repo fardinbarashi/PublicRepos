@@ -1,31 +1,74 @@
-# PsRemoveDuplicateFiles
+# Duplicate File Remover (PowerShell)
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
-PsRemoveDuplicateFiles is a PowerShell script designed to help you remove duplicate files from a folder and save disk space. It prompts the user to enter the path to the folder they want to search in, retrieves a list of all files in the specified folder and its subfolders, and identifies files with more than one occurrence. For each file with multiple occurrences, the script displays the file's full path, size in megabytes (MB), and prompts the user to delete it. If the user chooses to delete the file, it is removed using the `Remove-Item` cmdlet with the `-Force` flag, which forces deletion without confirmation. The script skips the deletion if the user chooses not to delete the file or enters an invalid choice.
-![Screenshot](https://github.com/fardinbarashi/PublicRepos/Powershell/Client/PsRemoveDuplicateFiles/blob/main/Screenshot.PNG)
-- Interactive prompt for selecting duplicate files to delete
-- Displays the full path and size of the duplicate files in MB
-- Safe deletion using the `Remove-Item` cmdlet with the `-Force` flag
-- Logs script execution details to a transcript file for review
+## 📦 Overview
+This PowerShell script helps you identify and remove duplicate files in a specified folder (and its subfolders), allowing you to free up valuable disk space. It checks for files with identical names and prompts you for each duplicate, giving you control over what to delete.
 
+---
 
-<!-- GETTING STARTED -->
-## Getting Started
-Change line 56 - FolderPath
+## ✅ Features
+- 🔍 Recursively scans a folder and its subfolders
+- 📂 Detects duplicate files based on file names
+- 🧾 Displays file paths and sizes for better decision-making
+- 🗑️ Prompts before deleting each duplicate
+- 🧠 Built-in logging via transcript for auditing
+- 💥 Force delete option for quick cleanup
 
+---
+
+## 💻 System Requirements
+Make sure your system meets the following requirements:
+
+- **PowerShell Version:** 5.1.19041.2364  
 
 <!-- LICENSE -->
 ## License
 Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- CONTACT -->
-## Contact
+---
 
-Linkedin - [Fardin Barashi]([https://twitter.com/your_username](https://www.linkedin.com/in/fardin-barashi-a56310a2/)) - email@example.com
+## 🚀 Usage
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+1. **Clone this repo or copy the script to your local machine.**
+2. **Open PowerShell as Administrator** (optional but recommended if system files may be involved).
+3. **Edit the script**:
+   Replace the line:
+   ```powershell
+   $folderPath = "ADD YOUR FOLDER"
+   ```
+   with the path to the folder you want to scan, for example:
+   ```powershell
+   $folderPath = "C:\Users\YourName\Documents"
+   ```
+4. **Run the script**:
+   It will scan for duplicate filenames and prompt you before deleting each duplicate.
+  Change line 56 - FolderPath
+---
+
+## 📓 Notes
+
+- **Script version:** 1.0  
+- **Author:** Fardin Barashi  
+- **Release date:** 2023-01-31  
+- **GitHub:** [https://github.com/fardinbarashi](https://github.com/fardinbarashi)
+
+---
+
+## ⚠️ Disclaimer
+This script identifies duplicates based on **file names only**, not content hash. Be cautious when deleting files—ensure they are truly duplicates!
+
+---
+
+## 🛠️ Example Output
+
+```plaintext
+Duplicate files found for the name: report.pdf
+Source file: C:\Docs\Reports\report.pdf, Size: 1.25 MB
+Duplicate file: C:\Backup\report.pdf, Size: 1.25 MB
+Do you want to delete the duplicate file: C:\Backup\report.pdf? (Y/N)
+```
+
+Happy cleaning! 🧹
 
 
 
