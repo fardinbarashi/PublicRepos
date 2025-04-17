@@ -86,9 +86,6 @@ Each file that matches the criteria triggers an individual email, like:
 
 ---
 
-> Keep your workflows running smooth and monitored. No more missed file transfers. 🔍📬
-
-
 
 
 <!-- LICENSE -->
