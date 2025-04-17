@@ -133,4 +133,7 @@ The help file (`Faq.txt`) will be opened with your default text editor.
 
 ---
 
-**Powerful pattern searching at your fingertips – with zero scripting knowledge required.** 🕵️‍♂️💻
+<!-- LICENSE -->
+## License
+Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
