@@ -124,13 +124,6 @@ If token request or API calls fail, the script will:
 
 ---
 
-> Perfect for inventory reports, automation pipelines, or integration with other systems.  
-> **Export your cloud environment with confidence.**
-
-**– Azure AD Export by Fardin Barashi**
-
-
-
 
 <!-- LICENSE -->
 ## License
