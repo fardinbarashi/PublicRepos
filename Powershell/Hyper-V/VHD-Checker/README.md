@@ -123,9 +123,6 @@ diskpart-config-1234.txt created and executed
 
 ---
 
-**Automatically manage your VHDX space with VHDX-Checker – reliable, proactive, and PowerShell-powered.** 💾🚀
-
-
 
 
 
