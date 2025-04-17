@@ -4,11 +4,11 @@
 
 ## System Requirements
 - **PowerShell version**: 5.1.19041.2364  
-- **PSEdition**: Desktop  
-- **CLRVersion**: 4.0.30319.42000  
-- **WSManStackVersion**: 3.0  
-- **PSRemotingProtocolVersion**: 2.3  
-- **SerializationVersion**: 1.1.0.1  
+
+<!-- LICENSE -->
+## License
+Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
 
@@ -50,7 +50,4 @@ By default, the script saves the CSV file at the following location:
 C:\Temp\WindowsServerRoles.csv
 
 
-<!-- LICENSE -->
-## License
-Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
