@@ -139,9 +139,9 @@
        Write-Output "--------------------"
        Write-Output $MailSubject = " VHDX-Checker Rapport $($LogFileDate) "  #  MailSubject
        Write-Output $MailBody = "During the execution of the script, the number of VHDXs that get increased in size is $($GetDiskPartConfigFiles.count) VHDX. Vhdx $($CheckMountedVhdx.Path). For more details see the log file $TranScriptLogFile" # MailBody    
-       $SmtpServer = "smtp1.aspcenter.se"
-       $MailFrom = "VhdxChecker@aspcenter.se"
-       $MailTo = "larm@aspcenter.se"
+       $SmtpServer = ""
+       $MailFrom = ""
+       $MailTo = ""
        # Send-MailMessage -To $MailTo -From $MailFrom -Subject $MailSubject -Body $MailBody -SmtpServer $SmtpServer -Encoding ([System.Text.Encoding]::UTF8)      
       } # End Else, IF ( $GetDiskPartConfigFiles.count -Eq $Null )
   } # End Try, Alert Team about VHDX files
@@ -152,9 +152,9 @@ Catch
   Write-Warning $MailSubject = " VHDX-Checker Rapport $($LogFileDate) - ERROR" # MailSubject
   Write-Output $Error[0];
   Write-Output $MailBody = "Could not alert team about VHDX images that has been affected during the script. $($Error[0]); For more details see the log file $TranScriptLogFile" # MailBody    
-  $SmtpServer = "smtp1.aspcenter.se"
-  $MailFrom = "VhdxChecker@aspcenter.se"
-  $MailTo = "larm@aspcenter.se"
+       $SmtpServer = ""
+       $MailFrom = ""
+       $MailTo = ""
   Send-MailMessage -To $MailTo -From $MailFrom -Subject $MailSubject -Body $MailBody -SmtpServer $SmtpServer -Encoding ([System.Text.Encoding]::UTF8)        
  }  # End Catch,  Alert Team about VHDX files
 
