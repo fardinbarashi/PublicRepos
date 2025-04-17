@@ -3,7 +3,7 @@
 <!-- LICENSE -->
 ## License
 Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ## 🧾 Overview
 **VHDX-Checker** is a PowerShell script designed to automatically monitor and manage the free space of `.vhdx` virtual disks. It mounts VHDX files, checks available disk space, and dynamically resizes disks that fall below a configured free space threshold. Ideal for Hyper-V or lab environments that use fixed-size virtual disks.
