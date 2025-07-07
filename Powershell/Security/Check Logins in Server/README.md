@@ -25,19 +25,6 @@ This PowerShell script extracts and logs all **successful interactive logins (Ev
 | Log Retention       | Security log must contain data going back at least the requested number of days |
 | CSV Output Folder   | Must exist and be writeable |
 
-Each row in the exported CSV contains:
-ComputerName
-TimeCreated
-EventId
-SubjectUserSid
-SubjectUserName
-SubjectDomainName
-TargetUserSid
-TargetUserName
-TargetDomainName
-LogonType
-LogonProcessName
-IpAddress
 ---
 
 ## ⚙️ Configuration
@@ -69,9 +56,24 @@ $DateFilter = (Get-Date).AddDays(-35)
   \Logs\<ScriptName> - <timestamp>.txt
   ```
 - Csvfiles saved in:
-  ``` "$PSScriptRoot\" 
-  Files\Report\Csv\logon events OnServer; $($env:COMPUTERNAME) $($LogFileDate).csv
   ```
+  "$PSScriptRoot\" 
+  Files\Report\Csv\logon events OnServer; $($env:COMPUTERNAME) $($LogFileDate).csv
+
+  Each row in the exported CSV contains:
+  ComputerName
+  TimeCreated
+  EventId
+  SubjectUserSid
+  SubjectUserName
+  SubjectDomainName
+  TargetUserSid
+  TargetUserName
+  TargetDomainName
+  LogonType
+  LogonProcessName
+  IpAddress
+
 ---
 
 ## 🧑‍💻 Author
