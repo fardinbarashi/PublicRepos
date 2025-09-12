@@ -26,7 +26,8 @@ if method is missing it will create the method.
 Script is using an app-reg with access to API**
 
 ### Features
--`
+- Adds Mobilenumber to Authenticaphone
+- Created phone as method if it is missing
 - Outputs:
   - A CSV of all the users that has been processed
 
@@ -36,7 +37,6 @@ Script is using an app-reg with access to API**
 <!-- GETTING STARTED -->
 ## Configuration
 Change in row 65
-Change value 6000 in row to higher if you got more then 6000 users in group. $response = Get-MgGroupMember -GroupId $groupId -Top 6000
 Add app-id settings files\MsGraph\MsGraphSettings.json
 Example content:
 ```json
@@ -50,6 +50,16 @@ Example content:
 <!-- LICENSE -->
 ## License
 Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
+
+<!-- MS-Links -->
+## MS-Links
+{
+Get-MgUserAuthenticationPhoneMethod ( https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.identity.signins/get-mguserauthenticationphonemethod?view=graph-powershell-1.0 )
+
+Update-MgUserAuthenticationPhone ( https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.identity.signins/update-mguserauthenticationphonemethod?view=graph-powershell-1.0 )
+}
+
+ 
 
 
 <!-- CONTACT -->
