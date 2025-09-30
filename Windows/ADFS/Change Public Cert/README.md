@@ -1,6 +1,6 @@
 <!-- ABOUT THE PROJECT -->
 # About The Project
-This Repository's is a howto on configure som Windows stuff..
+This Repository's is a howto on change your public cert..
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -49,4 +49,5 @@ On the ADFS Server:
 	Install-WebApplicationProxy -CertificateThumbprint 1E8B377DD54B7650612C98E4B8816501B4BB4985 -FederationServiceName sts.youradfsservice.com
 	
 	This step is missing in most documentations if you have existing WAP published applications. Since every published application is configured seperately with a SSL certificate we had to change every app. All applications in my infrastructure were published with the same certificate, so I’m able to switch all apps to the new certificate with this cmdlet: 
+
 	Get-WebApplicationProxyApplication | Set-WebApplicationProxyApplication -ExternalCertificateThumbprint 1E8B377DD54B7650612C98E4B8816501B4BB4985
