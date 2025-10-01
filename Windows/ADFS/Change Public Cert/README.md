@@ -14,40 +14,47 @@ Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
 
 
 
-On the ADFS Server:
+# On the ADFS Server:
 
-    Import the new SSL certificate in the computers „MY“ certificate store.
-    Run a elevated Powershell to get the thumbprint of the certificate.
-
+1. Import the new SSL certificate in the computers MY certificate store.
+2. Run a elevated Powershell to get the thumbprint of the certificate.
     cd cert:
     cd localmachine
     cd my
     dir
+3. Identify the thumbprint in the output. 
 
-    Identify the thumbprint in the output. In my case: 1E8B377DD54B7650612C98E4B8816501B4BB4985
-    Switch ADFS service communication certificate to the new SSL certificate with this cmdlet
+4. Switch ADFS service communication certificate to the new SSL certificate with this cmdlet
+    Set-AdfsCertificate -Thumbprint ThumbPrint -CertificateType Service-Communications
 
-    Set-AdfsCertificate -Thumbprint 1E8B377DD54B7650612C98E4B8816501B4BB4985 -CertificateType Service-Communications
+5. Set the ADFS SSL certificate with this cmdlet and proof it with netsh
+    Set-AdfsSslCertificate -Thumbprint ThumbPrint 
 
-    Set the ADFS SSL certificate with this cmdlet and proof it with netsh
-
-    Set-AdfsSslCertificate -Thumbprint 1E8B377DD54B7650612C98E4B8816501B4BB4985 
-
+6. Verifiy that the new SSL cert is in the ADFS-Apps
     netsh http show sslcert
 
-    Verifiy that „read“ access for the ADFS service account was granted on the certificate. Open „certlm.msc“, select the new SSL certificate and select „All Tasks / Manage private keys“.
-    Since this is a „Virtual Account“ we can see „NT SERVICE\adfssrv“ should have read access.
+7. Add read access to NT SERVICE\adfssrv
+    Verifiy that NT SERVICE\adfssrv have read access on the certificate. 
+	Open certlm.msc
+	select the new SSL certificate
+	select All Tasks / Manage private keys
+	Add NT SERVICE\adfssrv
+    
 	
 	
-	
-	
-	On the WAP Server:
+	# On the WAP Server:
 
-    Import the new SSL certificate in the computers „MY“ certificate store.
-    Configure the WAP service for the new certificate with this cmdlet. 
-	Set-WebApplicationProxySslCertificate -Thumbprint 1E8B377DD54B7650612C98E4B8816501B4BB4985
-	Install-WebApplicationProxy -CertificateThumbprint 1E8B377DD54B7650612C98E4B8816501B4BB4985 -FederationServiceName sts.youradfsservice.com
-	
-	This step is missing in most documentations if you have existing WAP published applications. Since every published application is configured seperately with a SSL certificate we had to change every app. All applications in my infrastructure were published with the same certificate, so I’m able to switch all apps to the new certificate with this cmdlet: 
+1. Import the new SSL certificate in the computers MY certificate store.
 
-	Get-WebApplicationProxyApplication | Set-WebApplicationProxyApplication -ExternalCertificateThumbprint 1E8B377DD54B7650612C98E4B8816501B4BB4985
+2. Configure the WAP service for the new certificate with this cmdlet. 
+	Set-WebApplicationProxySslCertificate -Thumbprint ThumbPrint
+	Install-WebApplicationProxy -CertificateThumbprint ThumbPrint -FederationServiceName sts.youradfsservice.com
+	
+	This step is missing in most documentations if you have existing WAP published applications. 
+	Since every published application is configured seperately with a SSL certificate we had to change every app. 
+	
+3. IF all apps in the infrastructure were published with the same certificate, switch all apps to the new certificate with this cmdlet: 
+	Get-WebApplicationProxyApplication | Set-WebApplicationProxyApplication -ExternalCertificateThumbprint ThumbPrint
+
+
+
