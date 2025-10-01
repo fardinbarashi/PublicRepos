@@ -7,15 +7,7 @@ This repository is a step-by-step guide on how to update your **public SSL certi
 
 ---
 
-<!-- LICENSE -->
-# License
 
-Distributed under the **GPL-3.0 License**.  
-See [`LICENSE.txt`](./LICENSE.txt) for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
----
 
 # 🖥️ On the ADFS Server
 
@@ -28,7 +20,7 @@ See [`LICENSE.txt`](./LICENSE.txt) for more information.
    cd my
    dir
    ```
-3. Identify the thumbprint in the output. 
+3. Identify the thumbprint in the output.
 
 4. Switch ADFS service communication certificate to the new SSL certificate with this cmdlet
    ```
@@ -73,6 +65,15 @@ See [`LICENSE.txt`](./LICENSE.txt) for more information.
 	```
 	
 
+<!-- LICENSE -->
+# License
+
+Distributed under the **GPL-3.0 License**.  
+See [`LICENSE.txt`](./LICENSE.txt) for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
 
 
 
