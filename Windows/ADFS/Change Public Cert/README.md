@@ -12,29 +12,7 @@ This repository is a step-by-step guide on how to update your **public SSL certi
 # 🖥️ On the ADFS Server
 
 1. Import the new SSL certificate into the **Local Computer → Personal (MY)** certificate store.
-2. Open an **elevated PowerShell** and get the thumbprint of the certificate:
-   ```
-   powershell : 
-   cd cert:
-   cd localmachine
-   cd my
-   dir
-   ```
-3. Identify the thumbprint in the output.
-
-4. Switch ADFS service communication certificate to the new SSL certificate with this cmdlet
-   ```
-   Set-AdfsCertificate -Thumbprint ThumbPrintNumber -CertificateType Service-Communications
-   ```
-5. Set the ADFS SSL certificate with this cmdlet and proof it with netsh
-    ```
-    Set-AdfsSslCertificate -Thumbprint ThumbPrintNumber 
-    ```
-6. Verifiy that the new SSL cert is in the ADFS-Apps
-    ```
-    netsh http show sslcert
-    ```
-7. Add read access to NT SERVICE\adfssrv
+2. . Add read access to NT SERVICE\adfssrv
     ```
     1. Verifiy that NT SERVICE\adfssrv have read access on the certificate. 
 	2. Open certlm.msc
@@ -42,7 +20,32 @@ This repository is a step-by-step guide on how to update your **public SSL certi
 	4. select All Tasks / Manage private keys
 	5. Add NT SERVICE\adfssrv
     6. Assign Read
-    ```  
+    ```   
+
+
+3. Open an **elevated PowerShell** and get the thumbprint of the certificate:
+   ```
+   powershell : 
+   cd cert:
+   cd localmachine
+   cd my
+   dir
+   ```
+4. Identify the thumbprint in the output.
+
+5. Switch ADFS service communication certificate to the new SSL certificate with this cmdlet
+   ```
+   Set-AdfsCertificate -Thumbprint ThumbPrintNumber -CertificateType Service-Communications
+   ```
+6. Set the ADFS SSL certificate with this cmdlet and proof it with netsh
+    ```
+    Set-AdfsSslCertificate -Thumbprint ThumbPrintNumber 
+    ```
+7. Verifiy that the new SSL cert is in the ADFS-Apps
+    ```
+    netsh http show sslcert
+    ```
+ 
 	
 # 🌐 On the WAP Server :
 
@@ -59,7 +62,8 @@ This repository is a step-by-step guide on how to update your **public SSL certi
 4. ⚠️ OPTIONAL : Switch SSL certificate in WAP published applications.
    This step is missing in most documentations if you have existing WAP published applications.
    Since every published application is configured seperately with a SSL certificate we had to change every app.
-   IF all apps in the infrastructure were published with the same certificate, switch all apps to the new certificate with this cmdlet: 
+   IF all apps in the infrastructure were published with the same certificate, switch all apps to the new certificate with this
+   cmdlet: 
     ```
 		Get-WebApplicationProxyApplication | Set-WebApplicationProxyApplication -ExternalCertificateThumbprint ThumbPrintNumber
 	```
@@ -74,6 +78,7 @@ See [`LICENSE.txt`](./LICENSE.txt) for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
+
 
 
 
