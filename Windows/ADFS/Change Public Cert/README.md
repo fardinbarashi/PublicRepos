@@ -67,6 +67,41 @@ This repository is a step-by-step guide on how to update your **public SSL certi
     ```
 		Get-WebApplicationProxyApplication | Set-WebApplicationProxyApplication -ExternalCertificateThumbprint ThumbPrintNumber
 	```
+
+
+5. ⚠️ To remove old Cert if its bugging, 
+Get Hostname
+
+    ```
+		netsh http show sslcert
+    ```
+    
+Remove old cert	
+    
+		
+		$RemoveCertThumbprint  = "4DA350B1FF06776C84177B89E7A19D0C1EF08B2A"
+        $app  = "{5d89a20c-beab-4389-9447-324788eb944a}"  # ADFS standard AppID
+
+        # 0.0.0.0:443
+        netsh http delete sslcert ipport=0.0.0.0:443
+        netsh http add    sslcert ipport=0.0.0.0:443 certhash=$RemoveCertThumbprint appid=$app
+
+        # SNI-bindningar
+        netsh http delete sslcert hostnameport=sts.youradfsservice.com:443
+        netsh http add    sslcert hostnameport=sts.youradfsservice.com:443 certhash=$RemoveCertThumbprint appid=$app
+		certstorename=MY
+
+        netsh http delete sslcert hostnameport=localhost:443
+        netsh http add    sslcert hostnameport=localhost:443 certhash=$RemoveCertThumbprint appid=$app certstorename=MY
+
+        netsh http delete sslcert hostnameport=sts.youradfsservice.com:49443
+        netsh http add    sslcert hostnameport=sts.youradfsservice.com:49443 certhash=$RemoveCertThumbprint appid=$app
+		certstorename=MY
+
+        netsh http delete sslcert hostnameport=enterpriseregistration.sts.youradfsservice.com:443
+        netsh http add    sslcert hostnameport=enterpriseregistration.sts.youradfsservice.com:443
+		certhash=$RemoveCertThumbprint appid=$app certstorename=MY
+
 	
 
 <!-- LICENSE -->
@@ -78,6 +113,7 @@ See [`LICENSE.txt`](./LICENSE.txt) for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
+
 
 
 
