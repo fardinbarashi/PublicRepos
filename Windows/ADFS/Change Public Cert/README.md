@@ -36,6 +36,7 @@ This repository is a step-by-step guide on how to update your **public SSL certi
 5. Switch ADFS service communication certificate to the new SSL certificate with this cmdlet
    ```
    Set-AdfsCertificate -Thumbprint ThumbPrintNumber -CertificateType Service-Communications
+   Restart-Service adfssrv
    ```
 6. Set the ADFS SSL certificate with this cmdlet and proof it with netsh
     ```
@@ -113,6 +114,7 @@ See [`LICENSE.txt`](./LICENSE.txt) for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
+
 
 
 
