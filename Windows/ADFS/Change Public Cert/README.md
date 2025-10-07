@@ -58,7 +58,17 @@ This repository is a step-by-step guide on how to update your **public SSL certi
 	```
 3. Rebuild Trust to ADFS.
     ```
-		Install-WebApplicationProxy -CertificateThumbprint ThumbPrintNumber -FederationServiceName sts.youradfsservice.com
+		Install-WebApplicationProxy -CertificateThumbprint ThumbPrintNumber FederationServiceName 
+
+		or
+
+		$cred = Get-Credential
+        Install-WebApplicationProxy `
+        -FederationServiceName "sts.youradfsservice.com" `
+        -CertificateThumbprint "ThumbPrintNumber" `
+        -FederationServiceTrustCredential $cred
+
+		
 	```
 4. ⚠️ OPTIONAL : Switch SSL certificate in WAP published applications.
    This step is missing in most documentations if you have existing WAP published applications.
@@ -114,6 +124,7 @@ See [`LICENSE.txt`](./LICENSE.txt) for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
+
 
 
 
