@@ -79,7 +79,7 @@ Get Hostname
 Remove old cert	
     
 		
-		$RemoveCertThumbprint  = "4DA350B1FF06776C84177B89E7A19D0C1EF08B2A"
+		$RemoveCertThumbprint  = "ThumbPrintNumber"
         $app  = "{5d89a20c-beab-4389-9447-324788eb944a}"  # ADFS standard AppID
 
         # 0.0.0.0:443
@@ -113,6 +113,7 @@ See [`LICENSE.txt`](./LICENSE.txt) for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
+
 
 
 
