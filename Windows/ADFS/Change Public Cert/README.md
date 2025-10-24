@@ -88,32 +88,43 @@ Get Hostname
     ```
     
 Remove old cert	
-    
+```  	
+		$RemoveCertThumbprint  = "ThumbPrintNumber"
+        $app  = "{5d89a20c-beab-4389-9447-324788eb944a}"  # ADFS standard AppID
+
+        # 0.0.0.0:443
+        netsh http delete sslcert ipport=0.0.0.0:443 appid=$app
+
+        # SNI-bindningar
+        netsh http delete sslcert hostnameport=sts.youradfsservice.com:443
+		certstorename=MY
+        netsh http delete sslcert hostnameport=localhost:443
+        netsh http delete sslcert hostnameport=sts.youradfsservice.com:49443
+        netsh http delete sslcert hostnameport=enterpriseregistration.sts.youradfsservice.com:443
+
+  ```
+
+Add New cert	
+```  
 		
 		$RemoveCertThumbprint  = "ThumbPrintNumber"
         $app  = "{5d89a20c-beab-4389-9447-324788eb944a}"  # ADFS standard AppID
 
         # 0.0.0.0:443
-        netsh http delete sslcert ipport=0.0.0.0:443
         netsh http add    sslcert ipport=0.0.0.0:443 certhash=$RemoveCertThumbprint appid=$app
 
         # SNI-bindningar
-        netsh http delete sslcert hostnameport=sts.youradfsservice.com:443
         netsh http add    sslcert hostnameport=sts.youradfsservice.com:443 certhash=$RemoveCertThumbprint appid=$app
 		certstorename=MY
 
-        netsh http delete sslcert hostnameport=localhost:443
         netsh http add    sslcert hostnameport=localhost:443 certhash=$RemoveCertThumbprint appid=$app certstorename=MY
 
-        netsh http delete sslcert hostnameport=sts.youradfsservice.com:49443
         netsh http add    sslcert hostnameport=sts.youradfsservice.com:49443 certhash=$RemoveCertThumbprint appid=$app
 		certstorename=MY
-
-        netsh http delete sslcert hostnameport=enterpriseregistration.sts.youradfsservice.com:443
+		
         netsh http add    sslcert hostnameport=enterpriseregistration.sts.youradfsservice.com:443
 		certhash=$RemoveCertThumbprint appid=$app certstorename=MY
-
-	
+```
 
 <!-- LICENSE -->
 # License
@@ -124,6 +135,7 @@ See [`LICENSE.txt`](./LICENSE.txt) for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
+
 
 
 
