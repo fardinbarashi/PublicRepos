@@ -107,23 +107,23 @@ Remove old cert
 Add New cert	
 ```  
 		
-		$RemoveCertThumbprint  = "ThumbPrintNumber"
+		$NewThumbprint  = "ThumbPrintNumber"
         $app  = "{5d89a20c-beab-4389-9447-324788eb944a}"  # ADFS standard AppID
 
         # 0.0.0.0:443
-        netsh http add    sslcert ipport=0.0.0.0:443 certhash=$RemoveCertThumbprint appid=$app
+        netsh http add    sslcert ipport=0.0.0.0:443 certhash=$NewThumbprint appid=$app
 
         # SNI-bindningar
-        netsh http add    sslcert hostnameport=sts.youradfsservice.com:443 certhash=$RemoveCertThumbprint appid=$app
+        netsh http add    sslcert hostnameport=sts.youradfsservice.com:443 certhash=$NewThumbprint appid=$app
 		certstorename=MY
 
-        netsh http add    sslcert hostnameport=localhost:443 certhash=$RemoveCertThumbprint appid=$app certstorename=MY
+        netsh http add    sslcert hostnameport=localhost:443 certhash=$NewThumbprint appid=$app certstorename=MY
 
-        netsh http add    sslcert hostnameport=sts.youradfsservice.com:49443 certhash=$RemoveCertThumbprint appid=$app
+        netsh http add    sslcert hostnameport=sts.youradfsservice.com:49443 certhash=$NewThumbprint appid=$app
 		certstorename=MY
 		
         netsh http add    sslcert hostnameport=enterpriseregistration.sts.youradfsservice.com:443
-		certhash=$RemoveCertThumbprint appid=$app certstorename=MY
+		certhash=$NewThumbprint appid=$app certstorename=MY
 ```
 
 <!-- LICENSE -->
@@ -135,6 +135,7 @@ See [`LICENSE.txt`](./LICENSE.txt) for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
+
 
 
 
