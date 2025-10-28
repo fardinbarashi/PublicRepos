@@ -9,10 +9,10 @@ This repository is a step-by-step guide on how to update your **public SSL certi
 
 
 
-# 🖥️ On the ADFS Server
+# 🖥️ On the ADFS Server and WAP-server
 
-1. Import the new SSL certificate into the **Local Computer → Personal (MY)** certificate store.
-2. . Add read access to NT SERVICE\adfssrv
+1. Import the new SSL certificate into the **Local Computer → Personal (MY)** certificate store on the servers that are affected ( ADFS + WAP )
+2. . On the ADFS-server Add read access to NT SERVICE\adfssrv
     ```
     1. Verifiy that NT SERVICE\adfssrv have read access on the certificate. 
 	2. Open certlm.msc
@@ -135,6 +135,7 @@ See [`LICENSE.txt`](./LICENSE.txt) for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
+
 
 
 
