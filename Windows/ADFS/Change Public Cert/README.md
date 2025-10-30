@@ -105,16 +105,7 @@ Add New cert
 	```
 3. Rebuild Trust to ADFS.
     ```
-		Install-WebApplicationProxy -CertificateThumbprint ThumbPrintNumber FederationServiceName 
-
-		or
-
-		$cred = Get-Credential
-        Install-WebApplicationProxy `
-        -FederationServiceName "sts.youradfsservice.com" `
-        -CertificateThumbprint "ThumbPrintNumber" `
-        -FederationServiceTrustCredential $cred
-
+		Install-WebApplicationProxy -CertificateThumbprint ThumbPrintNumber -FederationServiceName sts.adfsservice.contoso
 		
 	```
 4. ⚠️ OPTIONAL : Switch SSL certificate in WAP published applications.
@@ -137,6 +128,7 @@ See [`LICENSE.txt`](./LICENSE.txt) for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
+
 
 
 
