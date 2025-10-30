@@ -106,6 +106,8 @@ Add New cert
 3. Rebuild Trust to ADFS.
     ```
 		Install-WebApplicationProxy -CertificateThumbprint ThumbPrintNumber -FederationServiceName sts.adfsservice.contoso
+    Use account with domain admin
+    At trouble remove old wap proxy trust cert
 		
 	```
 4. ⚠️ OPTIONAL : Switch SSL certificate in WAP published applications.
@@ -128,6 +130,7 @@ See [`LICENSE.txt`](./LICENSE.txt) for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
+
 
 
 
