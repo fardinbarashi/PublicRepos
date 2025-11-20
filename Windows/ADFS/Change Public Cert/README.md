@@ -91,7 +91,7 @@ certhash=$NewThumbprint appid=$app certstorename=MY
 [Bugg](https://balofg.wordpress.com/2015/07/09/netsh-add-sslcert-by-hostname/)
 Use 
 ```
-netsh http> add sslcert hostnameport=localservice:443 certhash=<cert> appid=<guid> certstore=my
+netsh http add sslcert hostnameport=localservice:443 certhash=<cert> appid=<guid> certstore=my
 ```
 
 # 🌐 On the WAP Server :
@@ -125,6 +125,7 @@ See [`LICENSE.txt`](./LICENSE.txt) for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
+
 
 
 
