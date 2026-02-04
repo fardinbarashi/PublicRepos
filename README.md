@@ -19,6 +19,8 @@ Loves walks in the forrest with the dog Amstaff, optimizing systems and finding 
 ##### 3). AzureTenetServiceChecker, The name should tell what the app does. C# and Powershell
 ##### 4). ToDo-Helper, A app to remind you if object is going to expire soon. C# and Powershell
 ##### 5). And some Powershell tools.
+##### 6.) Create a webdashboard where manager can manage the ad-groups that they own.
+##### 7.) Automate systemdocumation for installed servers with windwos roles
 
 ## 🚀 Technologies & Tools
 ![C#](https://img.shields.io/badge/Csharp-svg)
@@ -39,3 +41,4 @@ Loves walks in the forrest with the dog Amstaff, optimizing systems and finding 
 
 ## 🔗 Connect with Me
 - [LinkedIn](https://www.linkedin.com/in/fardin-barashi-a56310a2/)
+
