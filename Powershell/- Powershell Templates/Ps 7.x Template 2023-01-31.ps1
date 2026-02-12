@@ -17,60 +17,94 @@ Release day : 2023-01-31
 Github Link  : https://github.com/fardinbarashi
 News : 
 
-
 #>
 
-#----------------------------------- Settings ------------------------------------------
+#------------------------------- Settings -------------------------------
+
 # Transcript
 $ScriptName = $MyInvocation.MyCommand.Name
 $LogFileDate = (Get-Date -Format yyyy/MM/dd/HH.mm.ss)
-$TranScriptLogFile = "$PSScriptRoot\Logs\$ScriptName - $LogFileDate.Txt" 
+$FileDate = (Get-Date -Format yyyy/MM/dd/)
+$TranScriptLogFile = "$PSScriptRoot\Logs\$ScriptName - $LogFileDate.Txt"
 $StartTranscript = Start-Transcript -Path $TranScriptLogFile -Force
 Get-Date -Format "yyyy/MM/dd HH:mm:ss"
 Write-Host ".. Starting TranScript"
 
+# Tenet-Settings
+$Settings = Get-Content "$PSScriptRoot\Settings\MsGraphSettings.json" | ConvertFrom-Json
+$AppId = $Settings.AppId
+$TenantId = $Settings.TenantId
+$CertificateThumbprint = $Settings.CertificateThumbprint
+$Certificate = Get-ChildItem Cert:\LocalMachine\My\$CertificateThumbprint
+
 # Error-Settings
 $ErrorActionPreference = 'Continue'
 
-#----------------------------------- Start Script ------------------------------------------
-# Section 1 : xx
-$Section = "Section 1 : XX"
-Try
-{ # Start Try, $Section
- Get-Date -Format "yyyy/MM/dd HH:mm:ss"
- Write-Host $Section... "0%" -ForegroundColor Yellow
- Get-ChildIteml -Path c:\tempa 
- # Run Query
+# Modules to import
+Write-Host "Checking required modules..." -ForegroundColor Yellow
 
- Write-Host ""
-} # End Try
+$requiredModules = @(
+    "Microsoft.Graph.Identity.DirectoryManagement",
+    "Microsoft.Graph.Groups"
+)
 
-Catch
+foreach ($module in $requiredModules) {
+    Write-Host "`nChecking module: $module" -ForegroundColor Cyan
+    
+    if (Get-Module -ListAvailable -Name $module) {
+        Write-Host "- Module found - Importing..." -ForegroundColor Green
+        Import-Module $module -ErrorAction SilentlyContinue
+    }
+    else {
+        Write-Host "- Module not found! - Installing..." -ForegroundColor Yellow
+        Install-Module -Name $module -Scope CurrentUser -Force -AllowClobber
+        Import-Module $module -Verbose
+    }
+}
+
+Write-Host "`nAll modules are ready!" -ForegroundColor Green
+
+
+
+#------------------------------- Start Script -------------------------------
+
+$Section = "Section 1 : Connect to MgGraph"
+Try 
+ { # Start Try
+    Get-Date -Format "yyyy/MM/dd HH:mm:ss"
+    Write-Host "Start" $Section -ForegroundColor Yellow
+
+    # Run Query
+    Write-Host "Trying to connect to the MgGraph... 0%" -ForegroundColor Yellow
+    $ConnectMgGraph = Connect-MgGraph -TenantId $TenantId -Certificate $Certificate -ClientId $AppId
+
+    if ($ConnectMgGraph -eq $null) 
+     { # Start if ($ConnectMgGraph -eq $null) 
+        Get-Date -Format "yyyy/MM/dd HH:mm:ss"
+        Write-Host "ERROR on $section" -ForegroundColor Red
+        Write-Warning $Error[0]
+        Write-Host "The Connections to MgGraph Failed, check your CertificateThumbprint" -ForegroundColor Yellow
+        Write-Host "Stopping Transcript and Script!" -ForegroundColor Red
+        Stop-Transcript
+        Exit
+     } # End if ($ConnectMgGraph -eq $null) 
+    else 
+     { # Start Else, if ($ConnectMgGraph -eq $null) 
+        Write-Host "Trying to connect to the MgGraph... 100%" -ForegroundColor Green
+        Write-Host "The Connections to MgGraph Successful, Continue the script " -ForegroundColor Green
+        Write-Host "End" $Section -ForegroundColor Green    
+      } # End Else, if ($ConnectMgGraph -eq $null) 
+
+    Write-Host ""
+ } # End Try
+Catch 
 { # Start Catch
-Get-Date -Format "yyyy/MM/dd HH:mm:ss"
- Write-Host "ERROR on $Section" -ForegroundColor Red
- # Get-Errors
- Get-Error
- Write-Warning $Error[0]
- Write-Warning $Error[0].CategoryInfo
- Write-Host ""
- Write-Warning $Error[0].InvocationInfo
- Write-Host ""
- Write-Warning $Error[0].Exception
- Write-Host ""
- Write-Warning $Error[0].FullyQualifiedErrorId
- Write-Host ""
- Write-Warning $Error[0].PipelineIterationInfo
- Write-Host ""
- Write-Warning $Error[0].ScriptStackTrace
- Write-Host ""
- Write-Warning $Error[0].TargetObject
- Write-Host ""
- Write-Warning $Error[0].PSMessageDetails
- Write-Host "Stopping Transcript and Script!" -ForegroundColor Red
- Stop-Transcript
- Exit
+    Get-Date -Format "yyyy/MM/dd HH:mm:ss"
+    Write-Host "ERROR on $Section" -ForegroundColor Red
+    Write-Host "ERROR:" $_.Exception.Message
+    Write-Host $Error[0]  
+    Write-Host "Stopping Transcript and Script!" -ForegroundColor Red
+    Stop-Transcript
 } # End Catch
 
-#----------------------------------- End Script ------------------------------------------
 Stop-Transcript
