@@ -23,7 +23,28 @@ $Certificate = Get-ChildItem Cert:\LocalMachine\My\$CertificateThumbprint
 $ErrorActionPreference = 'Continue'
 
 # Modules to import
-Import-Module Microsoft.Graph.Identity.DirectoryManagement
+Write-Host "Checking required modules..." -ForegroundColor Yellow
+
+$requiredModules = @(
+    "Microsoft.Graph.Identity.DirectoryManagement",
+    "Microsoft.Graph.Groups"
+)
+
+foreach ($module in $requiredModules) {
+    Write-Host "`nChecking module: $module" -ForegroundColor Cyan
+    
+    if (Get-Module -ListAvailable -Name $module) {
+        Write-Host "- Module found - Importing..." -ForegroundColor Green
+        Import-Module $module -ErrorAction SilentlyContinue
+    }
+    else {
+        Write-Host "- Module not found! - Installing..." -ForegroundColor Yellow
+        Install-Module -Name $module -Scope CurrentUser -Force -AllowClobber
+        Import-Module $module -Verbose
+    }
+}
+
+Write-Host "`nAll modules are ready!" -ForegroundColor Green
 
 #------------------------------- Functions -------------------------------
 
@@ -93,3 +114,4 @@ Catch {
 
 Stop-Transcript
 #------------------------------- End Script -------------------------------
+
