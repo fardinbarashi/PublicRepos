@@ -30,6 +30,30 @@ $StartTranscript = Start-Transcript -Path $TranScriptLogFile -Force
 Get-Date -Format "yyyy/MM/dd HH:mm:ss"
 Write-Host ".. Starting TranScript"
 
+# Modules to import
+Write-Host "Checking required modules..." -ForegroundColor Yellow
+
+$requiredModules = @(
+    "Microsoft.Graph.Identity.DirectoryManagement",
+    "Microsoft.Graph.Groups"
+)
+
+foreach ($module in $requiredModules) {
+    Write-Host "`nChecking module: $module" -ForegroundColor Cyan
+    
+    if (Get-Module -ListAvailable -Name $module) {
+        Write-Host "- Module found - Importing..." -ForegroundColor Green
+        Import-Module $module -ErrorAction SilentlyContinue
+    }
+    else {
+        Write-Host "- Module not found! - Installing..." -ForegroundColor Yellow
+        Install-Module -Name $module -Scope CurrentUser -Force -AllowClobber
+        Import-Module $module -Verbose
+    }
+}
+
+Write-Host "`nAll modules are ready!" -ForegroundColor Green
+
 #----------------------------------- Start Script ------------------------------------------
 
 # Region Sections Main Form Settings And Paths
