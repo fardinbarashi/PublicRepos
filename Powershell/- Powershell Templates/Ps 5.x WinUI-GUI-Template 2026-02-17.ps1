@@ -1,4 +1,4 @@
-﻿<#
+<#
 System requirements
 PSVersion                      5.1.19041.2364                                                                                                       
 PSEdition                      Desktop                                                                                                              
@@ -32,8 +32,8 @@ Write-Host ".. Starting TranScript"
 Write-Host "Checking required modules..." -ForegroundColor Yellow
 
 $requiredModules = @(
-    "",
-    ""
+  #  "",
+  #  ""
 )
 
 foreach ($module in $requiredModules) {
@@ -56,9 +56,7 @@ Write-Host "`nAll modules are ready!" -ForegroundColor Green
 Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase
 
 
-#  XAML
-$reader = [System.Xml.XmlReader]::Create([System.IO.StringReader]::new($xaml))
-$window = [Windows.Markup.XamlReader]::Load($reader)
+
 
 # FunctionList
 function Skriv-Logg {
@@ -172,6 +170,10 @@ $xaml = @"
     </Grid>
 </Window>
 "@
+
+#  XAML
+$reader = [System.Xml.XmlReader]::Create([System.IO.StringReader]::new($xaml))
+$window = [Windows.Markup.XamlReader]::Load($reader)
  # End Form Settings 
 
 # Get all controllers 
