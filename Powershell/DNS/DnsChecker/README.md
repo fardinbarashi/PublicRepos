@@ -85,7 +85,6 @@ To successfully run this script, PowerShell must be launched with **Administrato
 
 ---
 
-Happy scripting! 🔧🧠
 
 
 
