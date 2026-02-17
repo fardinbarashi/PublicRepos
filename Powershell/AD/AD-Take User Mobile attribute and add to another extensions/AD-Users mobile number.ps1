@@ -1,4 +1,6 @@
-﻿<#
+
+<#
+
 System requirements
 PSVersion                      5.1.19041.2364
 PSEdition                      Desktop
@@ -23,10 +25,9 @@ If there is a error change mobileattribute to the right value
 A HTML reports is created and mailed.
 
 Version : 1.0
-Release day : 2025-01-16
+Release day : 2026-02-17
 Github Link  : https://github.com/fardinbarashi
 News :
- 
 #>
 
 #----------------------------------- Settings ------------------------------------------
@@ -39,7 +40,25 @@ Get-Date -Format "yyyy/MM/dd HH:mm:ss"
 Write-Host ".. Starting TranScript"
 
 # Modules
-Import-Module ActiveDirectory
+$requiredModules = @(
+    "ActiveDirectory"
+)
+
+foreach ($module in $requiredModules) {
+    Write-Host "`nChecking module: $module" -ForegroundColor Cyan
+    
+    if (Get-Module -ListAvailable -Name $module) {
+        Write-Host "- Module found - Importing..." -ForegroundColor Green
+        Import-Module $module -ErrorAction SilentlyContinue
+    }
+    else {
+        Write-Host "- Module not found! - Installing..." -ForegroundColor Yellow
+        Install-Module -Name $module -Scope CurrentUser -Force -AllowClobber
+        Import-Module $module -Verbose
+    }
+}
+Write-Host "`nAll modules are ready!" -ForegroundColor Green
+
 
 # Filter
 $Filter = { (mobile -like "*") -and (objectClass -eq "user") }
